@@ -267,19 +267,19 @@ const AboutSection = () => (
     <ProfilePhoto /> {/* Add this line */}
     <div className="space-y-6 text-gray-300">
       <p>
-        I'm a passionate software engineer with a love for creating elegant
-        solutions to complex problems. With years of experience in both frontend
-        and backend development, I bring a comprehensive approach to every
-        project.
+        Développeur Web Fullstack avec 2 ans d'expérience, spécialisé en React,
+        Laravel, et WordPress. Créatif et passionné, je maîtrise HTML, CSS, et
+        JavaScript. Dévoué à suivre les dernières tendances technologiques et à
+        fournir des solutions modernes et performantes.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
         <div className="p-4 bg-gray-800/50 rounded-lg border border-violet-500/20">
           <h3 className="text-violet-400 font-semibold mb-2">Location</h3>
-          <p>San Francisco, CA</p>
+          <p>Marrakech, maroc</p>
         </div>
         <div className="p-4 bg-gray-800/50 rounded-lg border border-violet-500/20">
           <h3 className="text-violet-400 font-semibold mb-2">Languages</h3>
-          <p>English (Native), Spanish (Fluent)</p>
+          <p>English , Franch , Arabic</p>
         </div>
       </div>
     </div>
