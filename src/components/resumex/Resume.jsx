@@ -239,6 +239,13 @@ const ExperienceSection = () => (
             "Leading the frontend development team and implementing modern web solutions.",
         },
         {
+          year: "2022 - Present",
+          title: "Senior Frontend Developer",
+          company: "Tech Corp",
+          description:
+            "Leading the frontend development team and implementing modern web solutions.",
+        },
+        {
           year: "2020 - 2022",
           title: "Web Developer",
           company: "Digital Agency",
