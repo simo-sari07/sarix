@@ -463,9 +463,9 @@ const Hero = () => {
               </GlowingButton>
 
               <GlowingButton>
-                <a href="/contact" className="no-underline text-inherit">
-                  Contact Me
-                </a>
+                <Link to="/contact" className="no-underline text-inherit">
+                  Contact
+                </Link>
               </GlowingButton>
             </motion.div>
           </motion.div>
