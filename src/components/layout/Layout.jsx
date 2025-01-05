@@ -129,7 +129,7 @@ const Layout = () => {
 
         {/* Footer */}
         <footer
-          className="bg-gradient-to-r from-[#0a0f24] via-[#0d1638] to-[#0a0f24] text-white text-center py-4 fixed bottom-16 md:bottom-0  w-full md:relative"
+          className="bg-gradient-to-r from-[#0a0f24] via-[#0d1638] to-[#0a0f24] text-white text-center py-4 w-full fixed bottom-16 md:bottom-0 md:relative hidden sm:block"
           style={{
             backgroundImage:
               "radial-gradient(circle at center, #1c2b54, #0a0f24)",
