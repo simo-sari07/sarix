@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, Send } from "lucide-react";
 import { Link } from "react-router-dom";
+// import WelcomePopup from "./WelcomePopup";
 // GlowingButton Component
 const GlowingButton = ({ children, primary = false, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -112,9 +113,9 @@ const SpaceBackground = () => {
     window.addEventListener("resize", handleResize);
     handleResize();
 
-    // Web development icons
+    // Icons remain the same
     const icons = [
-      // React icon
+      // React icon (blue)
       {
         draw: (ctx, x, y, size) => {
           ctx.beginPath();
@@ -125,8 +126,36 @@ const SpaceBackground = () => {
           ctx.ellipse(x, y, size * 2, size * 0.8, -Math.PI / 3, 0, Math.PI * 2);
           ctx.stroke();
         },
+        color: "61, 184, 255",
       },
-      // Next.js icon
+      // TypeScript icon (blue)
+      {
+        draw: (ctx, x, y, size) => {
+          ctx.beginPath();
+          ctx.rect(x - size * 1.2, y - size * 1.2, size * 2.4, size * 2.4);
+          ctx.moveTo(x - size * 0.4, y);
+          ctx.lineTo(x + size * 0.8, y);
+          ctx.moveTo(x, y - size * 0.8);
+          ctx.lineTo(x, y + size * 0.8);
+          ctx.stroke();
+        },
+        color: "0, 122, 204",
+      },
+      // Laravel icon (red)
+      {
+        draw: (ctx, x, y, size) => {
+          ctx.beginPath();
+          ctx.moveTo(x - size, y - size);
+          ctx.lineTo(x + size, y - size);
+          ctx.lineTo(x, y + size);
+          ctx.closePath();
+          ctx.moveTo(x - size * 0.5, y);
+          ctx.lineTo(x + size * 0.5, y);
+          ctx.stroke();
+        },
+        color: "255, 45, 32",
+      },
+      // Next.js icon (white)
       {
         draw: (ctx, x, y, size) => {
           ctx.beginPath();
@@ -138,18 +167,20 @@ const SpaceBackground = () => {
           ctx.lineTo(x + size * 1.2, y);
           ctx.stroke();
         },
+        color: "255, 255, 255",
       },
-      // Node.js icon
+      // Node.js icon (green)
       {
         draw: (ctx, x, y, size) => {
           ctx.beginPath();
-          ctx.moveTo(x - size, y);
-          ctx.quadraticCurveTo(x, y - size, x + size, y);
-          ctx.quadraticCurveTo(x, y + size, x - size, y);
+          ctx.moveTo(x - size * 1.2, y);
+          ctx.quadraticCurveTo(x, y - size * 1.2, x + size * 1.2, y);
+          ctx.quadraticCurveTo(x, y + size * 1.2, x - size * 1.2, y);
           ctx.stroke();
         },
+        color: "51, 204, 51",
       },
-      // Database icon
+      // Database icon (purple)
       {
         draw: (ctx, x, y, size) => {
           ctx.beginPath();
@@ -161,11 +192,12 @@ const SpaceBackground = () => {
           ctx.lineTo(x + size, y + size);
           ctx.stroke();
         },
+        color: "147, 51, 234",
       },
     ];
 
-    // Floating elements with glow effect
-    const floatingElements = Array.from({ length: 20 }, () => ({
+    // Enhanced floating elements with radiation effect
+    const floatingElements = Array.from({ length: 25 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 3 + 2,
@@ -174,9 +206,10 @@ const SpaceBackground = () => {
       rotationSpeed: (Math.random() - 0.5) * 0.0008,
       icon: icons[Math.floor(Math.random() * icons.length)],
       glowIntensity: Math.random() * 0.3 + 0.2,
+      pulseOffset: Math.random() * Math.PI * 2, // Added for radiation effect
+      pulseSpeed: Math.random() * 0.003 + 0.002, // Added for radiation effect
     }));
 
-    // Stars with subtle glow
     const stars = Array.from({ length: 80 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -204,9 +237,21 @@ const SpaceBackground = () => {
         ctx.fill();
       });
 
-      // Draw floating elements with glow
+      // Enhanced drawing of floating elements with radiation
       floatingElements.forEach((element) => {
         const time = Date.now() * 0.001;
+
+        // Calculate pulsing effect
+        const pulse = Math.sin(
+          time * element.pulseSpeed * 5 + element.pulseOffset
+        );
+        const pulseScale = 1 + pulse * 0.2; // Icons will pulse between 80% and 120% of their size
+
+        // Calculate glow intensity with radiation effect
+        const glowPulse = Math.sin(
+          time * element.pulseSpeed * 3 + element.pulseOffset
+        );
+        const glowIntensity = 0.4 + element.glowIntensity + glowPulse * 0.3;
 
         element.x += Math.cos(element.angle) * element.speed;
         element.y += Math.sin(element.angle) * element.speed;
@@ -219,16 +264,26 @@ const SpaceBackground = () => {
         ctx.save();
         ctx.translate(element.x, element.y);
         ctx.rotate(time * element.rotationSpeed);
+        ctx.scale(pulseScale, pulseScale); // Apply pulsing scale
 
-        // Add glow effect
-        ctx.shadowColor = "rgba(64, 147, 255, 0.5)";
-        ctx.shadowBlur = 15;
+        // Enhanced glow effect
+        ctx.shadowColor = `rgba(${element.icon.color}, ${glowIntensity})`;
+        ctx.shadowBlur = 15 + pulse * 5; // Dynamic shadow blur
 
-        // Set icon color with glow intensity
-        ctx.strokeStyle = `rgba(64, 147, 255, ${0.4 + element.glowIntensity})`;
-        ctx.lineWidth = 1.5;
+        // Enhanced stroke style with radiation
+        ctx.strokeStyle = `rgba(${element.icon.color}, ${glowIntensity})`;
+        ctx.lineWidth = 1.5 + pulse * 0.5; // Dynamic line width
 
         element.icon.draw(ctx, 0, 0, element.size * 2);
+
+        // Add radiation rings
+        if (pulse > 0) {
+          ctx.beginPath();
+          ctx.arc(0, 0, element.size * 3 * pulse, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${element.icon.color}, ${0.1 * pulse})`;
+          ctx.stroke();
+        }
+
         ctx.restore();
       });
 
@@ -367,53 +422,56 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden z-50">
-      {isMounted && <SpaceBackground />}
+    <>
+      {/* <WelcomePopup /> */}
+      <div className="relative min-h-screen flex items-center justify-center overflow-hidden ">
+        {isMounted && <SpaceBackground />}
 
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
 
-      <div className="relative z-10 text-center px-4">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.div className="mb-6" variants={itemVariants}>
-            <motion.h2 className="text-violet-400 text-xl mb-4 font-light tracking-wide flex items-center justify-center gap-2">
-              <AnimatedText text="Hello" delay={0.2} />
-              <WavingHand />
-              <AnimatedText text="I'm" delay={0.2} />
-            </motion.h2>
+        <div className="relative z-10 text-center px-4">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+          >
+            <motion.div className="mb-6" variants={itemVariants}>
+              <motion.h2 className="text-violet-400 text-xl mb-4 font-light tracking-wide flex items-center justify-center gap-2">
+                <AnimatedText text="Hello" delay={0.2} />
+                <WavingHand />
+                <AnimatedText text="I'm" delay={0.2} />
+              </motion.h2>
 
-            <h1 className="text-white text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-              <AnimatedText text="Mohamed Sari" delay={0.4} />
-            </h1>
+              <h1 className="text-white text-5xl md:text-7xl font-bold mb-6 tracking-tight">
+                <AnimatedText text="Mohamed Sari" delay={0.4} />
+              </h1>
 
-            <motion.p
-              className="text-gray-300 text-xl md:text-2xl mb-8"
+              <motion.p
+                className="text-gray-300 text-xl md:text-2xl mb-8"
+                variants={itemVariants}
+              >
+                <AnimatedText text="Fullstack Developer" delay={0.6} />
+              </motion.p>
+            </motion.div>
+
+            <motion.div
+              className="flex flex-col sm:flex-row gap-4 justify-center"
               variants={itemVariants}
             >
-              <AnimatedText text="Fullstack Developer" delay={0.6} />
-            </motion.p>
-          </motion.div>
+              <GlowingButton primary onClick={handleCVDownload}>
+                Download CV
+              </GlowingButton>
 
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            variants={itemVariants}
-          >
-            <GlowingButton primary onClick={handleCVDownload}>
-              Download CV
-            </GlowingButton>
-
-            <GlowingButton>
-              <a href="/contact" className="no-underline text-inherit">
-                Contact Me
-              </a>
-            </GlowingButton>
+              <GlowingButton>
+                <a href="/contact" className="no-underline text-inherit">
+                  Contact Me
+                </a>
+              </GlowingButton>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

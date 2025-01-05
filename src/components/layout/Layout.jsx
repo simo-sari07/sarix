@@ -46,7 +46,7 @@ const Layout = () => {
         <AnimatePresence mode="wait">{isLoading && <Loader />}</AnimatePresence>
         {/* Top Navbar */}
         <motion.nav
-          className="fixed top-0 w-full z-40 hidden md:block"
+          className="fixed top-0 w-full z-40 hidden md:block "
           initial={{ y: 0 }}
           animate={{ y: visible ? 0 : -100 }}
           transition={{ duration: 0.3 }}
