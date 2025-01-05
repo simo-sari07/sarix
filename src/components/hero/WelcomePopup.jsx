@@ -15,7 +15,7 @@ const WelcomePopup = () => {
       const timer = setTimeout(() => {
         setIsOpen(true);
       }, 5000);
-      
+
       // Cleanup function to prevent memory leaks
       return () => clearTimeout(timer);
     }
@@ -112,9 +112,7 @@ const WelcomePopup = () => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link to="/projects" className="text-white no-underline">
-                  Let's explore
-                </Link>
+                <Link className="text-white no-underline">Let's explore</Link>
               </motion.button>
             </motion.div>
           </motion.div>
