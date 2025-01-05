@@ -42,7 +42,7 @@ const Resume = () => {
 
   return (
     <PageTransition>
-      <div className="bg-gradient-to-b from-black to-violet-800">
+      <div className="bg-gradient-to-b from-black to-violet-800 pt-16">
         <div
           className="min-h-screen  "
           style={{ width: "92%", margin: "auto" }}
@@ -235,25 +235,25 @@ const ExperienceSection = () => (
     <div className="space-y-12">
       {[
         {
-          year: "2022 - Present",
-          title: "Senior Frontend Developer",
-          company: "Tech Corp",
+          year: "2023",
+          title: "Projet E-commerce ",
+          company: "ISTA NTIC SYBA Marrakech",
           description:
-            "Leading the frontend development team and implementing modern web solutions.",
+            "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles nécessite une approche structurée qui répond aux besoins spécifiques de votre client tout en offrant une expérience utilisateur fluide et engageante..",
         },
         {
-          year: "2022 - Present",
-          title: "Senior Frontend Developer",
-          company: "Tech Corp",
+          year: "2023 - 2024",
+          title: "Projet E-commerce (CMS Strapi)",
+          company: "ISTA NTIC SYBA Marrakech",
           description:
-            "Leading the frontend development team and implementing modern web solutions.",
+            "Déployer un site e-commerce complet en utilisant le CMS Strapi, en intégrant des solutions API-first.",
         },
         {
-          year: "2020 - 2022",
-          title: "Web Developer",
-          company: "Digital Agency",
+          year: "2023 - 2024",
+          title: "Projet pour un site de location de voitures",
+          company: "ISTA NTIC SYBA Marrakech",
           description:
-            "Developed responsive websites and web applications for various clients.",
+            "Implémenter un système de gestion des réservations avec fonctionnalités de recherche et de paiement.",
         },
       ].map((item, index) => (
         <motion.div

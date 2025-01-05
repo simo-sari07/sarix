@@ -8,7 +8,7 @@ const Loader = () => {
   useEffect(() => {
     setProgress(0);
     const startTime = Date.now();
-    const duration = 2000;
+    const duration = 1000;
 
     const progressTimer = setInterval(() => {
       const elapsedTime = Date.now() - startTime;

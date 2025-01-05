@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Download, Send } from "lucide-react";
 import { Link } from "react-router-dom";
 // GlowingButton Component
-const GlowingButton = ({ children, primary = false,onClick }) => {
+const GlowingButton = ({ children, primary = false, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -85,6 +85,7 @@ const GlowingButton = ({ children, primary = false,onClick }) => {
 };
 
 // SpaceBackground Component
+
 const SpaceBackground = () => {
   const canvasRef = useRef(null);
   const [mounted, setMounted] = useState(false);
@@ -110,24 +111,6 @@ const SpaceBackground = () => {
 
     window.addEventListener("resize", handleResize);
     handleResize();
-
-    // Earth-like glow effect
-    const drawEarthGlow = () => {
-      const gradient = ctx.createRadialGradient(
-        canvas.width * 0.2,
-        canvas.height * 1.2,
-        0,
-        canvas.width * 0.2,
-        canvas.height * 1.2,
-        canvas.height
-      );
-      gradient.addColorStop(0, "rgba(64, 147, 255, 0.15)");
-      gradient.addColorStop(0.5, "rgba(64, 147, 255, 0.05)");
-      gradient.addColorStop(1, "rgba(64, 147, 255, 0)");
-
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-    };
 
     // Web development icons
     const icons = [
@@ -166,10 +149,23 @@ const SpaceBackground = () => {
           ctx.stroke();
         },
       },
+      // Database icon
+      {
+        draw: (ctx, x, y, size) => {
+          ctx.beginPath();
+          ctx.ellipse(x, y - size, size, size * 0.4, 0, 0, Math.PI * 2);
+          ctx.moveTo(x - size, y - size);
+          ctx.lineTo(x - size, y + size);
+          ctx.ellipse(x, y + size, size, size * 0.4, 0, 0, Math.PI * 2);
+          ctx.moveTo(x + size, y - size);
+          ctx.lineTo(x + size, y + size);
+          ctx.stroke();
+        },
+      },
     ];
 
-    // Floating elements without trails
-    const floatingElements = Array.from({ length: 15 }, () => ({
+    // Floating elements with glow effect
+    const floatingElements = Array.from({ length: 20 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       size: Math.random() * 3 + 2,
@@ -190,49 +186,11 @@ const SpaceBackground = () => {
       color: Math.random() > 0.5 ? "147, 51, 234" : "64, 147, 255",
     }));
 
-    // Atmospheric light waves
-    const waves = Array.from({ length: 3 }, (_, i) => ({
-      y: canvas.height * (0.3 + i * 0.2),
-      amplitude: 20 + i * 10,
-      frequency: 0.002 + i * 0.001,
-      speed: 0.0005 + i * 0.0002,
-    }));
-
     const animate = () => {
       if (!ctx || !canvas) return;
 
       ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      drawEarthGlow();
-
-      // Draw atmospheric waves
-      waves.forEach((wave) => {
-        ctx.beginPath();
-        for (let x = 0; x < canvas.width; x += 5) {
-          const y =
-            wave.y +
-            Math.sin(x * wave.frequency + Date.now() * wave.speed) *
-              wave.amplitude;
-          if (x === 0) {
-            ctx.moveTo(x, y);
-          } else {
-            ctx.lineTo(x, y);
-          }
-        }
-        const gradient = ctx.createLinearGradient(
-          0,
-          wave.y - wave.amplitude,
-          0,
-          wave.y + wave.amplitude
-        );
-        gradient.addColorStop(0, "rgba(64, 147, 255, 0)");
-        gradient.addColorStop(0.5, "rgba(64, 147, 255, 0.05)");
-        gradient.addColorStop(1, "rgba(64, 147, 255, 0)");
-        ctx.strokeStyle = gradient;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      });
 
       // Draw stars
       stars.forEach((star) => {
@@ -246,7 +204,7 @@ const SpaceBackground = () => {
         ctx.fill();
       });
 
-      // Draw floating elements
+      // Draw floating elements with glow
       floatingElements.forEach((element) => {
         const time = Date.now() * 0.001;
 
@@ -258,17 +216,18 @@ const SpaceBackground = () => {
         if (element.y < 0) element.y = canvas.height;
         if (element.y > canvas.height) element.y = 0;
 
-        // Draw icon with glow
         ctx.save();
         ctx.translate(element.x, element.y);
         ctx.rotate(time * element.rotationSpeed);
 
-        // Add subtle glow
+        // Add glow effect
         ctx.shadowColor = "rgba(64, 147, 255, 0.5)";
         ctx.shadowBlur = 15;
 
+        // Set icon color with glow intensity
         ctx.strokeStyle = `rgba(64, 147, 255, ${0.4 + element.glowIntensity})`;
         ctx.lineWidth = 1.5;
+
         element.icon.draw(ctx, 0, 0, element.size * 2);
         ctx.restore();
       });
@@ -305,6 +264,7 @@ const SpaceBackground = () => {
     />
   );
 };
+
 // AnimatedText Component
 const AnimatedText = ({ text, className = "", delay = 0 }) => {
   return (
@@ -333,6 +293,27 @@ const AnimatedText = ({ text, className = "", delay = 0 }) => {
 };
 
 // Main Hero Component
+const WavingHand = () => {
+  return (
+    <motion.span
+      animate={{
+        rotate: [0, 14, -8, 14, -4, 10, 0],
+        transformOrigin: "70% 70%",
+      }}
+      transition={{
+        duration: 2.5,
+        repeat: Infinity,
+        repeatType: "loop",
+        ease: "easeInOut",
+        repeatDelay: 1,
+      }}
+      className="inline-block"
+    >
+      👋
+    </motion.span>
+  );
+};
+
 const Hero = () => {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -358,7 +339,6 @@ const Hero = () => {
       document.body.appendChild(link);
       link.click();
 
-      // Clean up
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
     } catch (error) {
@@ -370,26 +350,39 @@ const Hero = () => {
     setIsMounted(true);
   }, []);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
-    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden z-50">
       {isMounted && <SpaceBackground />}
 
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
 
       <div className="relative z-10 text-center px-4">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <motion.div className="mb-6">
-            <motion.h2
-              className="text-violet-400 text-xl mb-4 font-light tracking-wide"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-            >
-              <AnimatedText text="Hello, I'm" delay={0.2} />
+          <motion.div className="mb-6" variants={itemVariants}>
+            <motion.h2 className="text-violet-400 text-xl mb-4 font-light tracking-wide flex items-center justify-center gap-2">
+              <AnimatedText text="Hello" delay={0.2} />
+              <WavingHand />
+              <AnimatedText text="I'm" delay={0.2} />
             </motion.h2>
 
             <h1 className="text-white text-5xl md:text-7xl font-bold mb-6 tracking-tight">
@@ -398,26 +391,24 @@ const Hero = () => {
 
             <motion.p
               className="text-gray-300 text-xl md:text-2xl mb-8"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
+              variants={itemVariants}
             >
               <AnimatedText text="Fullstack Developer" delay={0.6} />
             </motion.p>
           </motion.div>
 
           <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
+            variants={itemVariants}
           >
             <GlowingButton primary onClick={handleCVDownload}>
               Download CV
             </GlowingButton>
 
             <GlowingButton>
-              <Link to="/contact">Contact Me</Link>
+              <a href="/contact" className="no-underline text-inherit">
+                Contact Me
+              </a>
             </GlowingButton>
           </motion.div>
         </motion.div>
