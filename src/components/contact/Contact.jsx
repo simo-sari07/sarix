@@ -20,6 +20,10 @@ const Contact = () => {
   const [errors, setErrors] = useState({});
   const [showSuccess, setShowSuccess] = useState(false);
 
+  const playNotificationSound = () => {
+    const audio = new Audio("../../../public/pop.mp3");
+    audio.play().catch((error) => console.log("Audio playback failed:", error));
+  };
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
@@ -45,6 +49,7 @@ const Contact = () => {
       if (response.ok) {
         setFormData({ name: "", email: "", message: "" });
         setShowSuccess(true);
+        playNotificationSound();
         setTimeout(() => setShowSuccess(false), 3000);
       }
     } catch (error) {
@@ -69,7 +74,6 @@ const Contact = () => {
     <PageTransition>
       <div className="min-h-screen bg-gradient-to-b from-black to-violet-800 px-8 py-12 animate-fadeIn">
         <div className="max-w-6xl mx-auto mb-16">
-         
           <div className="text-6xl font-bold text-white space-y-2 text-center">
             <div>
               Let's <span className="text-violet-800">talk business</span>.

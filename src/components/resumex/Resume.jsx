@@ -203,6 +203,9 @@ const SkillsSection = () => (
         <motion.div
           key={index}
           className="p-6 bg-gray-800/50 backdrop-blur-sm rounded-lg border border-violet-500/20"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: index * 0.1 }}
         >
           <div className="flex items-center gap-3 mb-4">
             {category.icon}
@@ -300,45 +303,113 @@ const skillCategories = [
     skills: [
       {
         name: "HTML",
-        icon: <div className="text-orange-500 text-sm">⟨/⟩</div>,
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-orange-500 font-bold">
+            <span className="text-lg">&lt;/&gt;</span>
+          </div>
+        ),
       },
-      { name: "CSS", icon: <div className="text-blue-500 text-sm">#</div> },
+      {
+        name: "CSS",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-blue-500 font-bold">
+            #
+          </div>
+        ),
+      },
       {
         name: "JavaScript",
-        icon: <div className="text-yellow-400 text-sm">JS</div>,
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center bg-yellow-400 text-black rounded">
+            JS
+          </div>
+        ),
       },
-      { name: "React", icon: <div className="text-cyan-400 text-sm">⚛</div> },
+      {
+        name: "TypeScript",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center bg-blue-600 text-white rounded">
+            TS
+          </div>
+        ),
+      },
     ],
   },
   {
-    title: "Backend",
+    title: "Frameworks",
+    icon: <Code2 className="w-5 h-5 text-violet-400" />,
+    skills: [
+      {
+        name: "React",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-cyan-400 font-bold">
+            ⚛
+          </div>
+        ),
+      },
+      {
+        name: "Laravel",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-red-500">
+            🔸
+          </div>
+        ),
+      },
+      {
+        name: "Tailwind",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-cyan-400 font-bold">
+            TW
+          </div>
+        ),
+      },
+      {
+        name: "Bootstrap",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-purple-500 font-bold">
+            B
+          </div>
+        ),
+      },
+    ],
+  },
+  {
+    title: "Backend & Database",
     icon: <Server className="w-5 h-5 text-violet-400" />,
     skills: [
       {
-        name: "Node.js",
-        icon: <div className="text-green-500 text-sm">⬢</div>,
+        name: "PHP",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-indigo-500 font-bold">
+            𝔓
+          </div>
+        ),
       },
       {
         name: "Python",
-        icon: <div className="text-yellow-300 text-sm">Py</div>,
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-yellow-300">
+            🐍
+          </div>
+        ),
       },
       {
-        name: "MongoDB",
-        icon: <div className="text-green-500 text-sm">M</div>,
+        name: "MySQL",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-blue-500 font-bold">
+            𝓜
+          </div>
+        ),
       },
-      { name: "MySQL", icon: <div className="text-blue-400 text-sm">SQL</div> },
-    ],
-  },
-  {
-    title: "Tools",
-    icon: <Code2 className="w-5 h-5 text-violet-400" />,
-    skills: [
-      { name: "Git", icon: <div className="text-orange-500 text-sm">G</div> },
-      { name: "Docker", icon: <div className="text-blue-400 text-sm">D</div> },
-      { name: "Figma", icon: <div className="text-purple-400 text-sm">F</div> },
-      { name: "AWS", icon: <div className="text-orange-400 text-sm">aws</div> },
+      {
+        name: "WordPress",
+        icon: (
+          <div className="w-6 h-6 flex items-center justify-center text-blue-400">
+            W
+          </div>
+        ),
+      },
     ],
   },
 ];
-
 export default Resume;
