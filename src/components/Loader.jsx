@@ -1,107 +1,64 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const Loader = () => {
-  const [progress, setProgress] = useState(0);
-  const circumference = 2 * Math.PI * 44;
-
-  useEffect(() => {
-    setProgress(0);
-    const startTime = Date.now();
-    const duration = 1000;
-
-    const progressTimer = setInterval(() => {
-      const elapsedTime = Date.now() - startTime;
-      const newProgress = Math.min((elapsedTime / duration) * 100, 100);
-      setProgress(newProgress);
-      
-      if (newProgress >= 100) {
-        clearInterval(progressTimer);
-      }
-    }, 16);
-
-    return () => clearInterval(progressTimer);
-  }, []);
-
   return (
-    <AnimatePresence mode="wait">
-      <motion.div 
-        className="fixed inset-0 z-[100] flex items-center justify-center bg-gradient-to-br from-black to-violet-950"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.2 }}
-      >
-        <div className="relative w-32 h-32">
-          <div className="absolute inset-0 blur-xl bg-violet-500/30 rounded-full" />
-          
-          <svg className="w-full h-full -rotate-90 relative" viewBox="0 0 100 100">
-            <circle
-              className="text-violet-900"
-              strokeWidth="4"
-              stroke="currentColor"
-              fill="transparent"
-              r="44"
-              cx="50"
-              cy="50"
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-gradient-to-br from-gray-900 to-violet-950">
+      {/* Background glow effect */}
+      <div className="absolute w-32 h-32 bg-violet-500/20 blur-2xl rounded-full" />
+      
+      <div className="flex gap-2 items-end relative">
+        {[0, 1, 2].map((index) => (
+          <div key={index} className="relative">
+            {/* Glow effect underneath each bar */}
+            <motion.div
+              className="absolute inset-0 bg-violet-500/50 blur-md rounded-full"
+              animate={{
+                height: ["16px", "32px", "16px"],
+              }}
+              transition={{
+                duration: 0.75,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: index * 0.15,
+              }}
             />
             
-            <motion.circle
-              className="text-violet-400"
-              strokeWidth="4"
-              stroke="currentColor"
-              fill="transparent"
-              r="44"
-              cx="50"
-              cy="50"
-              strokeDasharray={circumference}
-              strokeDashoffset={circumference * (1 - progress / 100)}
-              strokeLinecap="round"
-              initial={{ strokeDashoffset: circumference }}
+            {/* Main animated bar */}
+            <motion.div
+              className="w-1.5 bg-gradient-to-t from-violet-600 to-violet-400 rounded-full relative z-10"
+              animate={{
+                height: ["16px", "32px", "16px"],
+                backgroundColor: ["#8B5CF6", "#A78BFA", "#8B5CF6"],
+              }}
+              transition={{
+                duration: 0.75,
+                repeat: Infinity,
+                repeatType: "reverse",
+                ease: "easeInOut",
+                delay: index * 0.15,
+              }}
             />
             
-            <motion.circle
-              className="text-violet-300"
-              r="2"
-              cx="50"
-              cy="6"
-              fill="currentColor"
-              animate={{ rotate: [0, 360] }}
+            {/* Subtle pulsing ring around each bar */}
+            <motion.div
+              className="absolute inset-0 border-2 border-violet-500/30 rounded-full"
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [0.3, 0, 0.3],
+              }}
               transition={{
                 duration: 1,
                 repeat: Infinity,
-                ease: "linear",
-              }}
-              style={{ transformOrigin: "50px 50px" }}
-            />
-          </svg>
-
-          <motion.div 
-            className="absolute inset-0 flex flex-col items-center justify-center"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.3 }}
-          >
-            <span className="text-2xl font-bold bg-gradient-to-r from-violet-400 to-purple-600 bg-clip-text text-transparent">
-              {Math.round(progress)}%
-            </span>
-            
-            <motion.div
-              className="absolute w-full h-full rounded-full border-2 border-violet-500/30"
-              animate={{
-                scale: [1, 1.1, 1],
-                opacity: [0.3, 0.1, 0.3],
-              }}
-              transition={{
-                duration: 1.5,
-                repeat: Infinity,
                 ease: "easeInOut",
+                delay: index * 0.15,
               }}
             />
-          </motion.div>
-        </div>
-      </motion.div>
-    </AnimatePresence>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 
