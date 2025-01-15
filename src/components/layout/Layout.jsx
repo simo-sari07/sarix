@@ -11,6 +11,7 @@ const Layout = () => {
   const [prevScrollPos, setPrevScrollPos] = useState(0);
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
+  const [hoveredPath, setHoveredPath] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,49 +47,83 @@ const Layout = () => {
         <AnimatePresence mode="wait">{isLoading && <Loader />}</AnimatePresence>
         {/* Top Navbar */}
         <motion.nav
-          className="fixed top-0 w-full z-40 hidden md:block "
-          initial={{ y: 0 }}
-          animate={{ y: visible ? 0 : -100 }}
-          transition={{ duration: 0.3 }}
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex justify-center py-4">
-              <div className="flex space-x-8 backdrop-blur-md bg-gradient-to-b from-[#0f0f1a]/80 to-[#1a0b2e]/80 px-8 py-2 rounded-full">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.path}
-                    to={link.path}
-                    className="relative px-3 py-2 group"
-                    onMouseEnter={() => setActivePage(link.path)}
-                    onMouseLeave={() => setActivePage(location.pathname)}
-                  >
-                    <span
-                      className={`text-sm font-medium transition-colors duration-200 ${
-                        location.pathname === link.path
-                          ? "text-violet-400"
-                          : "text-gray-300 hover:text-violet-300"
-                      }`}
-                    >
-                      {link.label}
-                    </span>
-                    <motion.div
-                      layoutId="navbar-underline"
-                      className="absolute bottom-0 left-0 w-full h-0.5 bg-violet-400"
-                      animate={{
-                        opacity: activePage === link.path ? 1 : 0,
-                      }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                      }}
-                    />
-                  </Link>
-                ))}
-              </div>
-            </div>
+      className="fixed top-0 w-full z-40 hidden md:block"
+      initial={{ y: 0 }}
+      animate={{ y: visible ? 0 : -100 }}
+      transition={{ duration: 0.3 }}
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex justify-center relative">
+          {/* Glowing background effect */}
+          <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 via-fuchsia-600/10 to-violet-600/10 blur-3xl opacity-50" />
+          
+          {/* Main navigation container */}
+          <div className="relative flex space-x-8 backdrop-blur-xl bg-gradient-to-r from-gray-900/90 via-violet-950/90 to-gray-900/90 px-8 py-3 rounded-2xl border border-violet-500/10 shadow-2xl shadow-violet-500/10">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="relative px-4 py-2 group"
+                onMouseEnter={() => {
+                  setActivePage(link.path);
+                  setHoveredPath(link.path);
+                }}
+                onMouseLeave={() => {
+                  setActivePage(location.pathname);
+                  setHoveredPath(null);
+                }}
+              >
+                {/* Hover effect background */}
+                <motion.div
+                  className="absolute inset-0 bg-violet-600/20 rounded-lg -z-10"
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: hoveredPath === link.path ? 1 : 0,
+                    scale: hoveredPath === link.path ? 1 : 0.8,
+                  }}
+                  transition={{ duration: 0.2 }}
+                />
+
+                {/* Link text */}
+                <span
+                  className={`text-sm font-medium transition-all duration-200 ${
+                    location.pathname === link.path
+                      ? "text-violet-300"
+                      : "text-gray-300 hover:text-violet-200"
+                  }`}
+                >
+                  {link.label}
+                </span>
+
+                {/* Active indicator */}
+                <motion.div
+                  layoutId="navbar-underline"
+                  className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-violet-400 via-fuchsia-400 to-violet-400"
+                  animate={{
+                    opacity: activePage === link.path ? 1 : 0,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 30,
+                  }}
+                />
+
+                {/* Glow effect on hover */}
+                <motion.div
+                  className="absolute inset-0 rounded-lg ring-2 ring-violet-400/20"
+                  animate={{
+                    opacity: hoveredPath === link.path ? 1 : 0,
+                    scale: hoveredPath === link.path ? 1 : 0.8,
+                  }}
+                  transition={{ duration: 0.2 }}
+                />
+              </Link>
+            ))}
           </div>
-        </motion.nav>
+        </div>
+      </div>
+    </motion.nav>
 
         {/* Bottom Navbar */}
         <nav className="fixed bottom-0 w-full z-40 md:hidden">
