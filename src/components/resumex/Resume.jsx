@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Layout, Server, Code2, ChevronDown } from "lucide-react";
 import ProfilePhoto from "./ProfilePhoto";
-import PageTransition from "../PageTransition";
+import PageTransition from "../Transition/PageTransition";
 const Resume = () => {
   const [selectedSection, setSelectedSection] = useState("Education");
   const [isMenuOpen, setIsMenuOpen] = useState(false);

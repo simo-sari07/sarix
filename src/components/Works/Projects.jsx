@@ -13,7 +13,7 @@ import {
 import FurniShop from "../../../public/1.png";
 import TaskFlow from "../../../public/2.webp";
 import HealthTrack from "../../../public/3.png";
-import PageTransition from "../PageTransition";
+import PageTransition from "../Transition/PageTransition";
 
 const techIcons = {
   React: <Code />,

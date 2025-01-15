@@ -9,7 +9,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import PageTransition from "../PageTransition";
+import PageTransition from "../Transition/PageTransition";
 
 const Contact = () => {
   const [formData, setFormData] = useState({

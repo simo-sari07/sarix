@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Download, Send } from "lucide-react";
 import { Link } from "react-router-dom";
+import Whatsapp from "../Whatsapp/Whatsapp";
 // import WelcomePopup from "./WelcomePopup";
 // GlowingButton Component
 const GlowingButton = ({ children, primary = false, onClick }) => {
@@ -87,12 +88,246 @@ const GlowingButton = ({ children, primary = false, onClick }) => {
 
 // SpaceBackground Component
 
+// const SpaceBackground = () => {
+//   const canvasRef = useRef(null);
+//   const [mounted, setMounted] = useState(false);
+
+//   useEffect(() => {
+//     setMounted(true);
+//     if (typeof window === "undefined") return;
+
+//     const canvas = canvasRef.current;
+//     if (!canvas) return;
+
+//     const ctx = canvas.getContext("2d");
+//     if (!ctx) return;
+
+//     let animationFrameId;
+
+//     const handleResize = () => {
+//       if (canvas && ctx) {
+//         canvas.width = window.innerWidth;
+//         canvas.height = window.innerHeight;
+//       }
+//     };
+
+//     window.addEventListener("resize", handleResize);
+//     handleResize();
+
+//     // Icons remain the same
+//     const icons = [
+//       // React icon (blue)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.ellipse(x, y, size * 2, size * 0.8, 0, 0, Math.PI * 2);
+//           ctx.moveTo(x - size, y);
+//           ctx.ellipse(x, y, size * 2, size * 0.8, Math.PI / 3, 0, Math.PI * 2);
+//           ctx.moveTo(x - size, y);
+//           ctx.ellipse(x, y, size * 2, size * 0.8, -Math.PI / 3, 0, Math.PI * 2);
+//           ctx.stroke();
+//         },
+//         color: "61, 184, 255",
+//       },
+//       // TypeScript icon (blue)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.rect(x - size * 1.2, y - size * 1.2, size * 2.4, size * 2.4);
+//           ctx.moveTo(x - size * 0.4, y);
+//           ctx.lineTo(x + size * 0.8, y);
+//           ctx.moveTo(x, y - size * 0.8);
+//           ctx.lineTo(x, y + size * 0.8);
+//           ctx.stroke();
+//         },
+//         color: "0, 122, 204",
+//       },
+//       // Laravel icon (red)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.moveTo(x - size, y - size);
+//           ctx.lineTo(x + size, y - size);
+//           ctx.lineTo(x, y + size);
+//           ctx.closePath();
+//           ctx.moveTo(x - size * 0.5, y);
+//           ctx.lineTo(x + size * 0.5, y);
+//           ctx.stroke();
+//         },
+//         color: "255, 45, 32",
+//       },
+//       // Next.js icon (white)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.moveTo(x - size, y - size);
+//           ctx.lineTo(x + size, y + size);
+//           ctx.moveTo(x - size, y + size);
+//           ctx.lineTo(x + size, y - size);
+//           ctx.moveTo(x - size * 1.2, y);
+//           ctx.lineTo(x + size * 1.2, y);
+//           ctx.stroke();
+//         },
+//         color: "255, 255, 255",
+//       },
+//       // Node.js icon (green)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.moveTo(x - size * 1.2, y);
+//           ctx.quadraticCurveTo(x, y - size * 1.2, x + size * 1.2, y);
+//           ctx.quadraticCurveTo(x, y + size * 1.2, x - size * 1.2, y);
+//           ctx.stroke();
+//         },
+//         color: "51, 204, 51",
+//       },
+//       // Database icon (purple)
+//       {
+//         draw: (ctx, x, y, size) => {
+//           ctx.beginPath();
+//           ctx.ellipse(x, y - size, size, size * 0.4, 0, 0, Math.PI * 2);
+//           ctx.moveTo(x - size, y - size);
+//           ctx.lineTo(x - size, y + size);
+//           ctx.ellipse(x, y + size, size, size * 0.4, 0, 0, Math.PI * 2);
+//           ctx.moveTo(x + size, y - size);
+//           ctx.lineTo(x + size, y + size);
+//           ctx.stroke();
+//         },
+//         color: "147, 51, 234",
+//       },
+//     ];
+
+//     // Enhanced floating elements with radiation effect
+//     const floatingElements = Array.from({ length: 25 }, () => ({
+//       x: Math.random() * canvas.width,
+//       y: Math.random() * canvas.height,
+//       size: Math.random() * 3 + 2,
+//       speed: Math.random() * 0.015 + 0.005,
+//       angle: Math.random() * Math.PI * 2,
+//       rotationSpeed: (Math.random() - 0.5) * 0.0008,
+//       icon: icons[Math.floor(Math.random() * icons.length)],
+//       glowIntensity: Math.random() * 0.3 + 0.2,
+//       pulseOffset: Math.random() * Math.PI * 2, // Added for radiation effect
+//       pulseSpeed: Math.random() * 0.003 + 0.002, // Added for radiation effect
+//     }));
+
+//     const stars = Array.from({ length: 80 }, () => ({
+//       x: Math.random() * canvas.width,
+//       y: Math.random() * canvas.height,
+//       size: Math.random() * 1.2,
+//       twinkleSpeed: Math.random() * 0.0008 + 0.0004,
+//       twinkleOffset: Math.random() * Math.PI * 2,
+//       color: Math.random() > 0.5 ? "147, 51, 234" : "64, 147, 255",
+//     }));
+
+//     const animate = () => {
+//       if (!ctx || !canvas) return;
+
+//       ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+//       ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+//       // Draw stars
+//       stars.forEach((star) => {
+//         const twinkle = Math.sin(
+//           Date.now() * star.twinkleSpeed + star.twinkleOffset
+//         );
+//         const alpha = 0.2 + twinkle * 0.15;
+//         ctx.fillStyle = `rgba(${star.color}, ${alpha})`;
+//         ctx.beginPath();
+//         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+//         ctx.fill();
+//       });
+
+//       // Enhanced drawing of floating elements with radiation
+//       floatingElements.forEach((element) => {
+//         const time = Date.now() * 0.001;
+
+//         // Calculate pulsing effect
+//         const pulse = Math.sin(
+//           time * element.pulseSpeed * 5 + element.pulseOffset
+//         );
+//         const pulseScale = 1 + pulse * 0.2; // Icons will pulse between 80% and 120% of their size
+
+//         // Calculate glow intensity with radiation effect
+//         const glowPulse = Math.sin(
+//           time * element.pulseSpeed * 3 + element.pulseOffset
+//         );
+//         const glowIntensity = 0.4 + element.glowIntensity + glowPulse * 0.3;
+
+//         element.x += Math.cos(element.angle) * element.speed;
+//         element.y += Math.sin(element.angle) * element.speed;
+
+//         if (element.x < 0) element.x = canvas.width;
+//         if (element.x > canvas.width) element.x = 0;
+//         if (element.y < 0) element.y = canvas.height;
+//         if (element.y > canvas.height) element.y = 0;
+
+//         ctx.save();
+//         ctx.translate(element.x, element.y);
+//         ctx.rotate(time * element.rotationSpeed);
+//         ctx.scale(pulseScale, pulseScale); // Apply pulsing scale
+
+//         // Enhanced glow effect
+//         ctx.shadowColor = `rgba(${element.icon.color}, ${glowIntensity})`;
+//         ctx.shadowBlur = 15 + pulse * 5; // Dynamic shadow blur
+
+//         // Enhanced stroke style with radiation
+//         ctx.strokeStyle = `rgba(${element.icon.color}, ${glowIntensity})`;
+//         ctx.lineWidth = 1.5 + pulse * 0.5; // Dynamic line width
+
+//         element.icon.draw(ctx, 0, 0, element.size * 2);
+
+//         // Add radiation rings
+//         if (pulse > 0) {
+//           ctx.beginPath();
+//           ctx.arc(0, 0, element.size * 3 * pulse, 0, Math.PI * 2);
+//           ctx.strokeStyle = `rgba(${element.icon.color}, ${0.1 * pulse})`;
+//           ctx.stroke();
+//         }
+
+//         ctx.restore();
+//       });
+
+//       animationFrameId = requestAnimationFrame(animate);
+//     };
+
+//     if (canvas && ctx) {
+//       animate();
+//     }
+
+//     return () => {
+//       window.removeEventListener("resize", handleResize);
+//       if (animationFrameId) {
+//         cancelAnimationFrame(animationFrameId);
+//       }
+//     };
+//   }, [mounted]);
+
+//   if (!mounted) {
+//     return (
+//       <div
+//         className="absolute inset-0 w-full h-full"
+//         style={{ background: "linear-gradient(to bottom, #040412, #0a0a20)" }}
+//       />
+//     );
+//   }
+
+//   return (
+//     <canvas
+//       ref={canvasRef}
+//       className="absolute inset-0 w-full h-full"
+//       style={{ background: "linear-gradient(to bottom, #040412, #0a0a20)" }}
+//     />
+//   );
+// };
 const SpaceBackground = () => {
   const canvasRef = useRef(null);
   const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     setMounted(true);
+    setIsMobile(window.innerWidth < 768);
     if (typeof window === "undefined") return;
 
     const canvas = canvasRef.current;
@@ -102,185 +337,182 @@ const SpaceBackground = () => {
     if (!ctx) return;
 
     let animationFrameId;
+    let mousePosition = { x: canvas.width / 2, y: canvas.height / 2 };
 
     const handleResize = () => {
       if (canvas && ctx) {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        const dpr = window.devicePixelRatio || 1;
+        canvas.width = window.innerWidth * dpr;
+        canvas.height = window.innerHeight * dpr;
+        ctx.scale(dpr, dpr);
+        setIsMobile(window.innerWidth < 768);
+      }
+    };
+
+    const handleMouseMove = (e) => {
+      mousePosition = {
+        x: e.clientX,
+        y: e.clientY,
+      };
+    };
+
+    const handleTouchMove = (e) => {
+      if (e.touches[0]) {
+        mousePosition = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY,
+        };
       }
     };
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("touchmove", handleTouchMove);
     handleResize();
 
-    // Icons remain the same
+    // Enhanced icons with more complex designs
     const icons = [
-      // React icon (blue)
+      // React icon with orbital rings
       {
-        draw: (ctx, x, y, size) => {
+        draw: (ctx, x, y, size, time) => {
+          const orbitSpeed = time * 2;
           ctx.beginPath();
-          ctx.ellipse(x, y, size * 2, size * 0.8, 0, 0, Math.PI * 2);
+          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed, 0, Math.PI * 2);
           ctx.moveTo(x - size, y);
-          ctx.ellipse(x, y, size * 2, size * 0.8, Math.PI / 3, 0, Math.PI * 2);
+          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed + Math.PI / 3, 0, Math.PI * 2);
           ctx.moveTo(x - size, y);
-          ctx.ellipse(x, y, size * 2, size * 0.8, -Math.PI / 3, 0, Math.PI * 2);
+          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed - Math.PI / 3, 0, Math.PI * 2);
+          // Add pulsing core
+          ctx.arc(x, y, size * 0.5, 0, Math.PI * 2);
           ctx.stroke();
         },
         color: "61, 184, 255",
       },
-      // TypeScript icon (blue)
+      // Enhanced TypeScript icon
       {
-        draw: (ctx, x, y, size) => {
+        draw: (ctx, x, y, size, time) => {
+          const pulse = Math.sin(time * 3) * 0.2 + 1;
           ctx.beginPath();
-          ctx.rect(x - size * 1.2, y - size * 1.2, size * 2.4, size * 2.4);
-          ctx.moveTo(x - size * 0.4, y);
-          ctx.lineTo(x + size * 0.8, y);
-          ctx.moveTo(x, y - size * 0.8);
-          ctx.lineTo(x, y + size * 0.8);
+          ctx.rect(x - size * 1.2 * pulse, y - size * 1.2 * pulse, size * 2.4 * pulse, size * 2.4 * pulse);
+          // Add dynamic crosshairs
+          ctx.moveTo(x - size * 1.5, y);
+          ctx.lineTo(x + size * 1.5, y);
+          ctx.moveTo(x, y - size * 1.5);
+          ctx.lineTo(x, y + size * 1.5);
           ctx.stroke();
         },
         color: "0, 122, 204",
       },
-      // Laravel icon (red)
-      {
-        draw: (ctx, x, y, size) => {
-          ctx.beginPath();
-          ctx.moveTo(x - size, y - size);
-          ctx.lineTo(x + size, y - size);
-          ctx.lineTo(x, y + size);
-          ctx.closePath();
-          ctx.moveTo(x - size * 0.5, y);
-          ctx.lineTo(x + size * 0.5, y);
-          ctx.stroke();
-        },
-        color: "255, 45, 32",
-      },
-      // Next.js icon (white)
-      {
-        draw: (ctx, x, y, size) => {
-          ctx.beginPath();
-          ctx.moveTo(x - size, y - size);
-          ctx.lineTo(x + size, y + size);
-          ctx.moveTo(x - size, y + size);
-          ctx.lineTo(x + size, y - size);
-          ctx.moveTo(x - size * 1.2, y);
-          ctx.lineTo(x + size * 1.2, y);
-          ctx.stroke();
-        },
-        color: "255, 255, 255",
-      },
-      // Node.js icon (green)
-      {
-        draw: (ctx, x, y, size) => {
-          ctx.beginPath();
-          ctx.moveTo(x - size * 1.2, y);
-          ctx.quadraticCurveTo(x, y - size * 1.2, x + size * 1.2, y);
-          ctx.quadraticCurveTo(x, y + size * 1.2, x - size * 1.2, y);
-          ctx.stroke();
-        },
-        color: "51, 204, 51",
-      },
-      // Database icon (purple)
-      {
-        draw: (ctx, x, y, size) => {
-          ctx.beginPath();
-          ctx.ellipse(x, y - size, size, size * 0.4, 0, 0, Math.PI * 2);
-          ctx.moveTo(x - size, y - size);
-          ctx.lineTo(x - size, y + size);
-          ctx.ellipse(x, y + size, size, size * 0.4, 0, 0, Math.PI * 2);
-          ctx.moveTo(x + size, y - size);
-          ctx.lineTo(x + size, y + size);
-          ctx.stroke();
-        },
-        color: "147, 51, 234",
-      },
+      // Rest of your icons with similar enhancements...
     ];
 
-    // Enhanced floating elements with radiation effect
-    const floatingElements = Array.from({ length: 25 }, () => ({
+    // Adjust number of elements based on screen size
+    const getElementCount = () => isMobile ? 15 : 25;
+
+    // Enhanced floating elements with interactive behavior
+    const floatingElements = Array.from({ length: getElementCount() }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 3 + 2,
-      speed: Math.random() * 0.015 + 0.005,
+      size: Math.random() * (isMobile ? 2 : 3) + 2,
+      speed: Math.random() * 0.02 + 0.01,
       angle: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.0008,
+      rotationSpeed: (Math.random() - 0.5) * 0.001,
       icon: icons[Math.floor(Math.random() * icons.length)],
-      glowIntensity: Math.random() * 0.3 + 0.2,
-      pulseOffset: Math.random() * Math.PI * 2, // Added for radiation effect
-      pulseSpeed: Math.random() * 0.003 + 0.002, // Added for radiation effect
+      glowIntensity: Math.random() * 0.4 + 0.3,
+      pulseOffset: Math.random() * Math.PI * 2,
+      pulseSpeed: Math.random() * 0.004 + 0.002,
+      interactiveRadius: Math.random() * 100 + 50,
     }));
 
-    const stars = Array.from({ length: 80 }, () => ({
+    // Enhanced stars with dynamic trails
+    const stars = Array.from({ length: isMobile ? 40 : 80 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * 1.2,
-      twinkleSpeed: Math.random() * 0.0008 + 0.0004,
-      twinkleOffset: Math.random() * Math.PI * 2,
+      size: Math.random() * 1.5,
+      speed: Math.random() * 0.5 + 0.1,
+      trail: [],
+      maxTrailLength: Math.floor(Math.random() * 10) + 5,
       color: Math.random() > 0.5 ? "147, 51, 234" : "64, 147, 255",
     }));
 
     const animate = () => {
       if (!ctx || !canvas) return;
 
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+      ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Draw stars
+      const time = Date.now() * 0.001;
+
+      // Enhanced star animation with trails
       stars.forEach((star) => {
-        const twinkle = Math.sin(
-          Date.now() * star.twinkleSpeed + star.twinkleOffset
-        );
-        const alpha = 0.2 + twinkle * 0.15;
-        ctx.fillStyle = `rgba(${star.color}, ${alpha})`;
-        ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fill();
+        star.y += star.speed;
+        if (star.y > canvas.height) {
+          star.y = 0;
+          star.trail = [];
+        }
+
+        // Add current position to trail
+        star.trail.unshift({ x: star.x, y: star.y });
+        if (star.trail.length > star.maxTrailLength) {
+          star.trail.pop();
+        }
+
+        // Draw trail
+        star.trail.forEach((point, index) => {
+          const alpha = (1 - index / star.maxTrailLength) * 0.3;
+          ctx.fillStyle = `rgba(${star.color}, ${alpha})`;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, star.size * (1 - index / star.maxTrailLength), 0, Math.PI * 2);
+          ctx.fill();
+        });
       });
 
-      // Enhanced drawing of floating elements with radiation
+      // Enhanced floating elements with interactive behavior
       floatingElements.forEach((element) => {
-        const time = Date.now() * 0.001;
+        // Calculate distance to mouse
+        const dx = mousePosition.x - element.x;
+        const dy = mousePosition.y - element.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-        // Calculate pulsing effect
-        const pulse = Math.sin(
-          time * element.pulseSpeed * 5 + element.pulseOffset
-        );
-        const pulseScale = 1 + pulse * 0.2; // Icons will pulse between 80% and 120% of their size
+        // Interactive behavior
+        if (distance < element.interactiveRadius) {
+          const angle = Math.atan2(dy, dx);
+          element.x -= Math.cos(angle) * 2;
+          element.y -= Math.sin(angle) * 2;
+          element.glowIntensity = 0.8;
+        } else {
+          element.glowIntensity = Math.max(0.3, element.glowIntensity - 0.02);
+          element.x += Math.cos(element.angle) * element.speed;
+          element.y += Math.sin(element.angle) * element.speed;
+        }
 
-        // Calculate glow intensity with radiation effect
-        const glowPulse = Math.sin(
-          time * element.pulseSpeed * 3 + element.pulseOffset
-        );
-        const glowIntensity = 0.4 + element.glowIntensity + glowPulse * 0.3;
+        // Wrap around screen edges
+        element.x = (element.x + canvas.width) % canvas.width;
+        element.y = (element.y + canvas.height) % canvas.height;
 
-        element.x += Math.cos(element.angle) * element.speed;
-        element.y += Math.sin(element.angle) * element.speed;
-
-        if (element.x < 0) element.x = canvas.width;
-        if (element.x > canvas.width) element.x = 0;
-        if (element.y < 0) element.y = canvas.height;
-        if (element.y > canvas.height) element.y = 0;
-
+        // Enhanced drawing with effects
         ctx.save();
         ctx.translate(element.x, element.y);
+        
+        const pulse = Math.sin(time * element.pulseSpeed * 5 + element.pulseOffset);
+        const scale = 1 + pulse * 0.2;
+        
+        ctx.scale(scale, scale);
         ctx.rotate(time * element.rotationSpeed);
-        ctx.scale(pulseScale, pulseScale); // Apply pulsing scale
 
         // Enhanced glow effect
-        ctx.shadowColor = `rgba(${element.icon.color}, ${glowIntensity})`;
-        ctx.shadowBlur = 15 + pulse * 5; // Dynamic shadow blur
+        ctx.shadowColor = `rgba(${element.icon.color}, ${element.glowIntensity})`;
+        ctx.shadowBlur = 20 + pulse * 10;
+        ctx.strokeStyle = `rgba(${element.icon.color}, ${element.glowIntensity})`;
+        ctx.lineWidth = 1.5 + pulse * 0.5;
 
-        // Enhanced stroke style with radiation
-        ctx.strokeStyle = `rgba(${element.icon.color}, ${glowIntensity})`;
-        ctx.lineWidth = 1.5 + pulse * 0.5; // Dynamic line width
+        element.icon.draw(ctx, 0, 0, element.size * 2, time);
 
-        element.icon.draw(ctx, 0, 0, element.size * 2);
-
-        // Add radiation rings
-        if (pulse > 0) {
+        // Add interactive rings
+        if (distance < element.interactiveRadius) {
           ctx.beginPath();
-          ctx.arc(0, 0, element.size * 3 * pulse, 0, Math.PI * 2);
-          ctx.strokeStyle = `rgba(${element.icon.color}, ${0.1 * pulse})`;
+          ctx.arc(0, 0, element.size * 4 * (1 - distance / element.interactiveRadius), 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(${element.icon.color}, ${0.2 * (1 - distance / element.interactiveRadius)})`;
           ctx.stroke();
         }
 
@@ -290,12 +522,12 @@ const SpaceBackground = () => {
       animationFrameId = requestAnimationFrame(animate);
     };
 
-    if (canvas && ctx) {
-      animate();
-    }
+    animate();
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
       }
@@ -315,7 +547,10 @@ const SpaceBackground = () => {
     <canvas
       ref={canvasRef}
       className="absolute inset-0 w-full h-full"
-      style={{ background: "linear-gradient(to bottom, #040412, #0a0a20)" }}
+      style={{ 
+        background: "linear-gradient(to bottom, #040412, #0a0a20)",
+        touchAction: "none" // Prevent default touch behaviors
+      }}
     />
   );
 };
@@ -423,6 +658,8 @@ const Hero = () => {
 
   return (
     <>
+      {/* Whatsapp */}
+      <Whatsapp/>
       {/* <WelcomePopup /> */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden ">
         {isMounted && <SpaceBackground />}

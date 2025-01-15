@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import Loader from './Loader';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Loader from "../Loader/Loader";
 const PageTransition = ({ children }) => {
   const [isLoading, setIsLoading] = useState(true);
 
