@@ -5,13 +5,10 @@ import Resume from "./components/resumex/Resume";
 import Projects from "./components/Works/Projects";
 import Contact from "./components/contact/Contact";
 import Hero from "./components/hero/hero";
-import WelcomePopup from "./components/hero/WelcomePopup";
 
 const App = () => {
   return (
     <Router>
-      <WelcomePopup />
-      
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Hero />} />
