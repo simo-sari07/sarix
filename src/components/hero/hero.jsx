@@ -659,7 +659,7 @@ const Hero = () => {
   return (
     <>
       {/* Whatsapp */}
-      <Whatsapp/>
+      
       {/* <WelcomePopup /> */}
       <div className="relative min-h-screen flex items-center justify-center overflow-hidden ">
         {isMounted && <SpaceBackground />}
