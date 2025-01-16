@@ -5,8 +5,26 @@ const CosmicDevCursor = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
   const [isPointer, setIsPointer] = useState(false)
   const [isClicking, setIsClicking] = useState(false)
+  const [isLargeScreen, setIsLargeScreen] = useState(true)
 
   useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)')
+    setIsLargeScreen(mediaQuery.matches)
+
+    const handleMediaQueryChange = (event) => {
+      setIsLargeScreen(event.matches)
+    }
+
+    mediaQuery.addListener(handleMediaQueryChange)
+
+    return () => {
+      mediaQuery.removeListener(handleMediaQueryChange)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!isLargeScreen) return
+
     const updateMousePosition = (ev) => {
       setMousePosition({ x: ev.clientX, y: ev.clientY })
     }
@@ -30,7 +48,9 @@ const CosmicDevCursor = () => {
       window.removeEventListener('mousedown', handleMouseDown)
       window.removeEventListener('mouseup', handleMouseUp)
     }
-  }, [mousePosition.x, mousePosition.y])
+  }, [isLargeScreen, mousePosition.x, mousePosition.y])
+
+  if (!isLargeScreen) return null
 
   return (
     <>
@@ -115,3 +135,4 @@ const CosmicDevCursor = () => {
 }
 
 export default CosmicDevCursor
+
