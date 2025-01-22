@@ -676,7 +676,7 @@ const Hero = () => {
               <motion.h2 className="text-violet-400 text-xl mb-4 font-light tracking-wide flex items-center justify-center gap-2">
                 <AnimatedText text="Hello" delay={0.2} />
                 <WavingHand />
-                <AnimatedText text="I'm" delay={0.2} />
+                <AnimatedText text="I'm test" delay={0.2} />
               </motion.h2>
 
               <h1 className="text-white text-5xl md:text-7xl font-bold mb-6 tracking-tight">
