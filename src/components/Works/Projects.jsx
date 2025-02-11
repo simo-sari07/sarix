@@ -11,9 +11,11 @@ import {
   Settings,
   Globe,
   Award,
-  Users
+  Users,
 } from "lucide-react";
-
+import project1 from "../../../public/bio1.png";
+import project2 from "../../../public/bio2.png";
+import project3 from "../../../public/centerkech.png";
 const techIcons = {
   React: <Code className="text-cyan-400" />,
   "Node.js": <Server className="text-green-400" />,
@@ -29,12 +31,12 @@ const techIcons = {
 const projects = [
   {
     id: "01",
-    title: "FurniShop",
+    title: "Center KEch",
     subtitle: "E-commerce Revolution",
     description:
       "E-commerce platform for modern furniture with advanced filtering and 3D previews. Experience furniture shopping like never before with our immersive 3D visualization technology.",
     tech: ["React", "Node.js", "Three.js"],
-    image: "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: project1,
     stats: [
       { icon: <Globe />, value: "7", label: "Experience" },
       { icon: <Users />, value: "2", label: "Team size" },
@@ -49,12 +51,12 @@ const projects = [
   },
   {
     id: "02",
-    title: "TaskFlow",
+    title: "Ecommerce Website",
     subtitle: "Seamless Collaboration",
     description:
       "Project management tool with real-time collaboration features. Streamline your workflow with intuitive task management and team coordination capabilities.",
     tech: ["Vue.js", "Firebase", "Tailwind"],
-    image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image:project2,
     stats: [
       { icon: <Globe />, value: "5", label: "Months" },
       { icon: <Users />, value: "3", label: "Team size" },
@@ -69,12 +71,12 @@ const projects = [
   },
   {
     id: "03",
-    title: "HealthTrack",
+    title: "MERN STACK EOMMERCE",
     subtitle: "AI-Powered Healthcare",
     description:
       "Healthcare management system with AI-powered diagnostics. Revolutionizing patient care through advanced machine learning algorithms and intuitive interfaces.",
     tech: ["Next.js", "Python", "TensorFlow"],
-    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80",
+    image: project3,
     stats: [
       { icon: <Globe />, value: "12", label: "Months" },
       { icon: <Users />, value: "4", label: "Team size" },
@@ -125,16 +127,20 @@ function Projects() {
               </div>
               <h2 className="absolute bottom-0 text-5xl font-mono font-bold text-white">
                 Featured
-                <span className={`bg-gradient-to-r ${project.color} bg-clip-text text-transparent`}>
-                  {" "}Projects
+                <span
+                  className={`bg-gradient-to-r ${project.color} bg-clip-text text-transparent`}
+                >
+                  {" "}
+                  Projects
                 </span>
               </h2>
             </div>
           </div>
           <div className="lg:pt-16">
             <p className="text-gray-400 text-lg">
-              Crafting digital experiences through innovative solutions and cutting-edge technology. 
-              Each project represents a unique challenge tackled with precision and creativity.
+              Crafting digital experiences through innovative solutions and
+              cutting-edge technology. Each project represents a unique
+              challenge tackled with precision and creativity.
             </p>
           </div>
         </div>
@@ -144,14 +150,16 @@ function Projects() {
           {/* Project Image */}
           <div className="lg:col-span-7 relative group">
             <div className="relative rounded-2xl overflow-hidden aspect-video">
-              <div className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`} />
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${project.color} opacity-0 group-hover:opacity-20 transition-opacity duration-500`}
+              />
               <img
                 src={project.image}
                 alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </div>
-            
+
             {/* Navigation Controls */}
             <div className="absolute -bottom-6 right-6 flex gap-4">
               <button
@@ -174,13 +182,19 @@ function Projects() {
           {/* Project Details */}
           <div className="lg:col-span-5 space-y-8">
             <div>
-              <h3 className="text-4xl font-bold text-white mb-2">{project.title}</h3>
-              <p className={`text-lg bg-gradient-to-r ${project.color} bg-clip-text text-transparent font-medium`}>
+              <h3 className="text-4xl font-bold text-white mb-2">
+                {project.title}
+              </h3>
+              <p
+                className={`text-lg bg-gradient-to-r ${project.color} bg-clip-text text-transparent font-medium`}
+              >
                 {project.subtitle}
               </p>
             </div>
 
-            <p className="text-gray-400 leading-relaxed">{project.description}</p>
+            <p className="text-gray-400 leading-relaxed">
+              {project.description}
+            </p>
 
             {/* Tech Stack */}
             <div className="space-y-4">
@@ -200,8 +214,13 @@ function Projects() {
             {/* Project Stats */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {project.stats.map((stat, index) => (
-                <div key={index} className="text-center p-4 bg-gray-800 rounded-lg">
-                  <div className={`text-2xl font-bold bg-gradient-to-r ${project.color} bg-clip-text text-transparent mb-1`}>
+                <div
+                  key={index}
+                  className="text-center p-4 bg-gray-800 rounded-lg"
+                >
+                  <div
+                    className={`text-2xl font-bold bg-gradient-to-r ${project.color} bg-clip-text text-transparent mb-1`}
+                  >
                     {stat.value}
                   </div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
