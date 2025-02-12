@@ -42,7 +42,7 @@ const projects = [
     },
     links: {
       github: "https://github.com/username/furnishop",
-      live: "https://furnishop.demo",
+      live: "https://bio-et-bien-etre.vercel.app/index.html",
     },
   },
   {
