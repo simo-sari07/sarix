@@ -42,7 +42,7 @@ export default function WhatsappContact() {
                 <div className="bg-white p-1.5 rounded-full">
                   <FaWhatsapp size={24} className="text-green-500" />
                 </div>
-                <h3 className="text-lg font-medium">Contactez-nous ..</h3>
+                <h3 className="text-lg font-medium">Contactez-nous</h3>
               </div>
             </div>
 
