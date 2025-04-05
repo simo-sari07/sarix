@@ -120,7 +120,7 @@ export default function WhatsappContact() {
             exit={{ opacity: 0, x: 20 }}
             transition={{ delay: 0.5 }}
           >
-            <div className="text-gray-800 font-medium">Need help??</div>
+            <div className="text-gray-800 font-medium">Need help?</div>
             <div className="text-gray-600 text-sm">Contact us</div>
             <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-3 h-3 bg-white"></div>
           </motion.div>
