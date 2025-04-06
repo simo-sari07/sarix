@@ -64,7 +64,7 @@ export default function WhatsappContact() {
                       <span className="text-black font-bold text-xs">M.S</span>
                     </div>
                   </div>
-                  <span className="font-medium text-gray-800">Mr Hamza </span>
+                  <span className="font-medium text-gray-800">Mr Sari </span>
                 </div>
                 <FaWhatsapp size={20} className="text-green-500" />
               </a>
