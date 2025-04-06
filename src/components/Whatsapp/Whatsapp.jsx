@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { FaWhatsapp, FaTimes } from "react-icons/fa"
 import { motion, AnimatePresence } from "framer-motion"
+import React from "react"
 
 export default function WhatsappContact() {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,7 +38,7 @@ export default function WhatsappContact() {
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
           >
             {/* Header */}
-            <div className="bg-green-500 p-4 text-white">
+            <div className="bg-gradient-to-r from-cyan-400 via-blue-300 to-purple-400-4 text-white">
               <div className="flex items-center gap-3">
                 <div className="bg-white p-1.5 rounded-full">
                   <FaWhatsapp size={24} className="text-green-500" />
@@ -63,7 +64,7 @@ export default function WhatsappContact() {
                       <span className="text-black font-bold text-xs">M.S</span>
                     </div>
                   </div>
-                  <span className="font-medium text-gray-800">Mr Sari </span>
+                  <span className="font-medium text-gray-800">Mr Hamza </span>
                 </div>
                 <FaWhatsapp size={20} className="text-green-500" />
               </a>
@@ -76,7 +77,7 @@ export default function WhatsappContact() {
       <div className="fixed md:bottom-6 bottom-14 right-4 z-50">
         <motion.button
           onClick={toggleChat}
-          className={`p-3 rounded-full shadow-lg ${isOpen ? "bg-red-500" : "bg-green-500"}`}
+          className={`p-3 rounded-full shadow-lg ${isOpen ? "bg-red-500" : "bg-gradient-to-r from-cyan-400 via-blue-300 to-purple-400"}`}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           initial={{ y: -100, opacity: 0.2 }}
@@ -110,17 +111,17 @@ export default function WhatsappContact() {
         </motion.button>
       </div>
 
-      {/* Tooltip */}
+      {/* Tooltip - Only shows on desktop screens (md and above) */}
       <AnimatePresence>
         {!isOpen && (
           <motion.div
-            className="fixed md:bottom-6 bottom-14 right-20 z-40 bg-white py-2 px-4 rounded-lg shadow-md max-w-xs"
+            className="fixed md:bottom-6 bottom-14 right-20 z-40 bg-white py-2 px-4 rounded-lg shadow-md max-w-xs hidden md:block"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: 20 }}
             transition={{ delay: 0.5 }}
           >
-            <div className="text-gray-800 font-medium">Need help?</div>
+            <div className="text-gray-800 font-medium">Need help??</div>
             <div className="text-gray-600 text-sm">Contact us</div>
             <div className="absolute right-0 top-1/2 transform translate-x-1/2 -translate-y-1/2 rotate-45 w-3 h-3 bg-white"></div>
           </motion.div>
@@ -129,4 +130,3 @@ export default function WhatsappContact() {
     </>
   )
 }
-
