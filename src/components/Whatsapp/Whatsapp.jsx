@@ -64,7 +64,7 @@ export default function WhatsappContact() {
                       <span className="text-black font-bold text-xs">M.S</span>
                     </div>
                   </div>
-                  <span className="font-medium text-gray-800">Mr Sari </span>
+                  <span className="font-medium text-gray-800">Mr sari </span>
                 </div>
                 <FaWhatsapp size={20} className="text-green-500" />
               </a>
@@ -129,8 +129,4 @@ export default function WhatsappContact() {
       </AnimatePresence>
     </>
   )
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> d0064a6 (new update pro)
