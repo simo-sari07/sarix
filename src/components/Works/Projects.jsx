@@ -53,7 +53,7 @@ const projects = [
     description:
       "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles avec une architecture MERN stack pour une performance optimale et une expérience utilisateur exceptionnelle.",
     tech: ["React", "MongoDB", "Tailwind", "Express.js", "Node.js"],
-    image: site3,
+    image: site2,
     links: {
       github: "https://github.com/username/taskflow",
       live: "#",
@@ -65,7 +65,7 @@ const projects = [
     description:
       "Soutien et Accompagnement scolaire à Marrakech - Une plateforme éducative complète offrant des ressources pédagogiques et un suivi personnalisé pour les étudiants.",
     tech: ["React", "Tailwind"],
-    image: site2,
+    image: site3,
     links: {
       github: "https://github.com/username/healthtrack",
       live: "https://centerkech.vercel.app/",
