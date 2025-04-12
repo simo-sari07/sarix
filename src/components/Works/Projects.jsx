@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react"
 import { X, Github, ExternalLink, Code, Server, Database, Layers, Settings, ArrowRight } from "lucide-react"
 import { useMediaQuery } from "./use-mobile"
-import PageTransition from "../Transition/PageTransition"
 
 // Tech icons mapping
 const techIcons = {
@@ -288,7 +287,6 @@ function Projects() {
   }, [])
 
   return (
-    <PageTransition>
       <div className="min-h-screen bg-black py-16 px-4 sm:px-6 lg:px-8" ref={projectsRef}>
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
@@ -360,7 +358,6 @@ function Projects() {
 
         {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
       </div>
-    </PageTransition>
   )
 }
 
