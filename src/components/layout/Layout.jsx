@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Home, FileText, Folder, Mail } from "lucide-react";
+import { Home, FileText, Folder, Mail, Server    } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../Loader/Loader";
 import PageTransition from "../Transition/PageTransition";
@@ -40,6 +40,7 @@ const Layout = () => {
     { path: "/", label: "Home", icon: Home },
     { path: "/Resume", label: "Resume", icon: FileText },
     { path: "/projects", label: "Projects", icon: Folder },
+    { path: "/Servies", label: "Servies", icon: Server    },
     { path: "/contact", label: "Contact", icon: Mail },
   ];
 
