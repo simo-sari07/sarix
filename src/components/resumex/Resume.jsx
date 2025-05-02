@@ -303,15 +303,7 @@ const skillCategories = [
       {
         name: "TypeScript",
         icon: <SiTypescript className="w-5 h-5 text-blue-600" />,
-      },
-      {
-        name: "jQuery",
-        icon: <SiJquery className="w-5 h-5 text-blue-400" />,
-      },
-      {
-        name: "Sass",
-        icon: <SiSass className="w-5 h-5 text-pink-500" />,
-      },
+      }
     ],
   },
   {
