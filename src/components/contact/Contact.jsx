@@ -66,8 +66,6 @@ const Contact = () => {
       bgColor: "bg-gradient-to-r from-purple-500 to-pink-500",
     },
     { Icon: Linkedin, href: "#", bgColor: "bg-blue-500" },
-    { Icon: Twitter, href: "#", bgColor: "bg-sky-500" },
-    { Icon: Youtube, href: "#", bgColor: "bg-red-600" },
   ];
 
   return (
