@@ -160,6 +160,11 @@ const EducationSection = () => (
     <div className="space-y-12">
       {[
         {
+          year: "2025",
+          title: "STAGE EN ENTREPRISE REDWALLS COMMUNICATION ", 
+          institution: "Wordpress developement & SEO ",
+        },
+        {
           year: "2023-2025",
           title: "ISTA NTIC SYBA Marrakech",
           institution: "developement digital web fullstack",
