@@ -16,9 +16,9 @@ const ProfilePhoto = () => {
           ease: "linear",
         }}
       />
-      <div className="absolute inset-2 rounded-full overflow-hidden">
+      {/* <div className="absolute inset-2 rounded-full overflow-hidden">
         <img src={pfoto} alt="Profile" className="w-full h-full object-cover" />
-      </div>
+      </div> */}
     </div>
   );
 };
