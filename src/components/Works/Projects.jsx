@@ -47,32 +47,32 @@ const techIcons = {
 
 // Project data
 const projects = [
-  {
-    id: "01",
-    title: "E-commerce Revolution",
-    description:
-      "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles nécessite une approche structurée qui répond aux besoins spécifiques de votre client tout en offrant une expérience utilisateur fluide et engageante.",
-    tech: ["HTML", "CSS", "JavaScript", "scrollReveal.js"],
-    image: "/websites/site1.png",
-    links: {
-      github: "https://github.com/username/furnishop",
-      live: "https://bio-et-bien-etre.vercel.app/index.html",
-    },
-    category: "Web Development",
-  },
-  {
-    id: "02",
-    title: "MERN STACK | E-commerce Platform",
-    description:
-      "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles avec une architecture MERN stack pour une performance optimale et une expérience utilisateur exceptionnelle.",
-    tech: ["React", "MongoDB", "Tailwind", "Express.js", "Node.js"],
-    image: "/websites/site3.png",
-    links: {
-      github: "https://github.com/username/taskflow",
-      live: "#",
-    },
-    category: "Full Stack",
-  },
+  // {
+  //   id: "01",
+  //   title: "E-commerce Revolution",
+  //   description:
+  //     "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles nécessite une approche structurée qui répond aux besoins spécifiques de votre client tout en offrant une expérience utilisateur fluide et engageante.",
+  //   tech: ["HTML", "CSS", "JavaScript", "scrollReveal.js"],
+  //   image: "/websites/site1.png",
+  //   links: {
+  //     github: "https://github.com/username/furnishop",
+  //     live: "https://bio-et-bien-etre.vercel.app/index.html",
+  //   },
+  //   category: "Web Development",
+  // },
+  // {
+  //   id: "02",
+  //   title: "MERN STACK | E-commerce Platform",
+  //   description:
+  //     "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles avec une architecture MERN stack pour une performance optimale et une expérience utilisateur exceptionnelle.",
+  //   tech: ["React", "MongoDB", "Tailwind", "Express.js", "Node.js"],
+  //   image: "/websites/site3.png",
+  //   links: {
+  //     github: "https://github.com/username/taskflow",
+  //     live: "#",
+  //   },
+  //   category: "Full Stack",
+  // },
   {
     id: "03",
     title: "MERN STACK| Centre Kech",
