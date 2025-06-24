@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { X, Github, ExternalLink, ArrowRight } from 'lucide-react'
-import { useMediaQuery } from "./use-mobile"
+import { useState, useEffect, useRef } from "react";
+import { X, Github, ExternalLink, ArrowRight } from "lucide-react";
+import { useMediaQuery } from "./use-mobile";
 
 // Import real programming language icons
 import {
@@ -22,7 +22,7 @@ import {
   SiMongodb,
   SiWordpress,
   SiPhp,
-} from "react-icons/si"
+} from "react-icons/si";
 
 // Tech icons mapping with real icons
 const techIcons = {
@@ -42,8 +42,7 @@ const techIcons = {
   "Express.js": <SiExpress className="text-white" />,
   MongoDB: <SiMongodb className="text-[#47A248]" />,
   WordPress: <SiWordpress className="text-[#21759B]" />,
-  PHP: <SiPhp className="text-[#777BB4]" />,
-}
+};
 
 // Project data
 const projects = [
@@ -82,7 +81,7 @@ const projects = [
     image: "/websites/site2.png",
     links: {
       github: "https://github.com/username/healthtrack",
-      live: "https://centerkech.vercel.app/",
+      live: "https://centerkech.vercel.app",
     },
     category: "Full Stack",
   },
@@ -95,7 +94,7 @@ const projects = [
     image: "/websites/site4.png",
     links: {
       github: "https://github.com/username/agency",
-      live: "https://brandbuzz-eta.vercel.app/",
+      live: "https://brandbuzz-eta.vercel.app",
     },
     category: "Frontend",
   },
@@ -104,11 +103,11 @@ const projects = [
     title: "Aitassou Travel agency in Marrakech",
     description:
       "Aitassou Travel is a leading travel agency in Marrakech, offering tailored tours, desert adventures, and authentic Moroccan experiences. Explore Morocco with us today!",
-    tech: ["WordPress", "PHP"],
+    tech: ["WordPress"],
     image: "/websites/wp1.png",
     links: {
       github: "#",
-      live: "https://aitassoutravel.ma/",
+      live: "https://aitassoutravel.ma",
     },
     category: "CMS",
   },
@@ -117,11 +116,11 @@ const projects = [
     title: "Journey and Memory Travel Agency",
     description:
       "Journey and Memory is a travel agency in Morocco dedicated to crafting authentic and personalized travel experiences",
-    tech: ["WordPress", "PHP"],
+    tech: ["WordPress"],
     image: "/websites/wp2.png",
     links: {
       github: "#",
-      live: "https://journeymemory.ma/",
+      live: "https://journeymemory.ma",
     },
     category: "CMS",
   },
@@ -130,55 +129,71 @@ const projects = [
     title: "Cabinet de Kinésithérapie à Marrakech",
     description:
       "Notre équipe de kinésithérapeutes qualifiés vous accueille dans un espace dédié à la rééducation, aux massages thérapeutiques et aux soins personnalisés",
-    tech: ["WordPress", "PHP"],
+    tech: ["WordPress"],
     image: "/websites/wp3.png",
     links: {
       github: "#",
-      live: "https://cabinetkanzaizarane.com/",
+      live: "https://cabinetkanzaizarane.com",
     },
     category: "CMS",
   },
-]
+  {
+    id: "07",
+    title: "Lux Marrakech Conciergerie",
+    description:
+      "Site vitrine pour une conciergerie de luxe à Marrakech, mettant en valeur des services haut de gamme sur-mesure. Design élégant, expérience utilisateur fluide, et contenu raffiné pour refléter l’excellence de la marque.",
+    tech: ["WordPress"],
+    image: "/websites/site6.png",
+    links: {
+      github: "#",
+      live: "https://luxmarrakech.com",
+    },
+    category: "CMS",
+  },
+];
 
 function ProjectModal({ project, onClose }) {
-  const modalRef = useRef(null)
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const modalRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === "Escape") onClose()
-    }
+      if (e.key === "Escape") onClose();
+    };
 
     const handleClickOutside = (e) => {
-      if (e.target.classList.contains("modal-overlay")) onClose()
-    }
+      if (e.target.classList.contains("modal-overlay")) onClose();
+    };
 
     // Animation on mount
     if (modalRef.current) {
-      modalRef.current.style.opacity = 0
+      modalRef.current.style.opacity = 0;
       setTimeout(() => {
-        if (modalRef.current) modalRef.current.style.opacity = 1
-      }, 10)
+        if (modalRef.current) modalRef.current.style.opacity = 1;
+      }, 10);
     }
 
-    document.addEventListener("keydown", handleEsc)
-    document.addEventListener("click", handleClickOutside)
-    document.body.style.overflow = "hidden" // Prevent scrolling when modal is open
+    document.addEventListener("keydown", handleEsc);
+    document.addEventListener("click", handleClickOutside);
+    document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
 
     return () => {
-      document.removeEventListener("keydown", handleEsc)
-      document.removeEventListener("click", handleClickOutside)
-      document.body.style.overflow = "" // Restore scrolling
-    }
-  }, [onClose])
+      document.removeEventListener("keydown", handleEsc);
+      document.removeEventListener("click", handleClickOutside);
+      document.body.style.overflow = ""; // Restore scrolling
+    };
+  }, [onClose]);
 
-  if (!project) return null
+  if (!project) return null;
 
   // Mobile view - just show the image with close button
   if (isMobile) {
     return (
       <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4 modal-overlay transition-all duration-300">
-        <div ref={modalRef} className="w-full h-full flex flex-col transition-opacity duration-300">
+        <div
+          ref={modalRef}
+          className="w-full h-full flex flex-col transition-opacity duration-300"
+        >
           <div className="relative flex-1 flex items-center justify-center">
             <button
               onClick={onClose}
@@ -221,7 +236,7 @@ function ProjectModal({ project, onClose }) {
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   // Desktop view - enhanced modal
@@ -257,11 +272,17 @@ function ProjectModal({ project, onClose }) {
             </div>
 
             <div className="md:w-1/2 p-6">
-              <h3 className="text-2xl font-bold text-white mb-3">{project.title}</h3>
-              <p className="text-gray-300 text-sm mb-5">{project.description}</p>
+              <h3 className="text-2xl font-bold text-white mb-3">
+                {project.title}
+              </h3>
+              <p className="text-gray-300 text-sm mb-5">
+                {project.description}
+              </p>
 
               <div className="mb-5">
-                <h4 className="text-sm font-semibold text-gray-400 mb-2">Technologies</h4>
+                <h4 className="text-sm font-semibold text-gray-400 mb-2">
+                  Technologies
+                </h4>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech) => (
                     <span
@@ -304,37 +325,43 @@ function ProjectModal({ project, onClose }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 function Projects() {
-  const [selectedProject, setSelectedProject] = useState(null)
-  const projectsRef = useRef(null)
+  const [selectedProject, setSelectedProject] = useState(null);
+  const projectsRef = useRef(null);
 
   // Apply animation classes on mount
   useEffect(() => {
     const timer = setTimeout(() => {
-      const projectCards = document.querySelectorAll(".project-card")
+      const projectCards = document.querySelectorAll(".project-card");
       projectCards.forEach((card, index) => {
         setTimeout(() => {
-          card.classList.add("animate-in")
-        }, index * 100)
-      })
-    }, 100)
+          card.classList.add("animate-in");
+        }, index * 100);
+      });
+    }, 100);
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-black to-gray-900 py-20 px-4 sm:px-6 lg:px-8" ref={projectsRef}>
+    <div
+      className="min-h-screen bg-gradient-to-b from-black to-gray-900 py-20 px-4 sm:px-6 lg:px-8"
+      ref={projectsRef}
+    >
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <span className="inline-block px-3 py-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full text-xs font-medium text-white mb-3">
             Portfolio
           </span>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">Featured Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            Featured Projects
+          </h2>
           <p className="text-gray-400 max-w-2xl mx-auto">
-            A showcase of my creative work across web development, design, and digital experiences.
+            A showcase of my creative work across web development, design, and
+            digital experiences.
           </p>
         </div>
 
@@ -358,7 +385,9 @@ function Projects() {
                 {/* Image */}
                 <div className="relative w-full h-52 overflow-hidden">
                   <img
-                    src={project.image || "/placeholder.svg?height=400&width=600"}
+                    src={
+                      project.image || "/placeholder.svg?height=400&width=600"
+                    }
                     alt={project.title}
                     className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
                   />
@@ -370,7 +399,9 @@ function Projects() {
                   <h3 className="text-xl font-bold text-white mb-2 group-hover:text-purple-300 transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-gray-400 text-sm mb-5 line-clamp-2">{project.description}</p>
+                  <p className="text-gray-400 text-sm mb-5 line-clamp-2">
+                    {project.description}
+                  </p>
 
                   {/* Tech Stack */}
                   <div className="flex flex-wrap gap-2 mb-5">
@@ -405,9 +436,14 @@ function Projects() {
         </div>
       </div>
 
-      {selectedProject && <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />}
+      {selectedProject && (
+        <ProjectModal
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
+        />
+      )}
     </div>
-  )
+  );
 }
 
-export default Projects
+export default Projects;
