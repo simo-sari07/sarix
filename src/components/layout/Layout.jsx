@@ -40,7 +40,7 @@ const Layout = () => {
     { path: "/", label: "Home", icon: Home },
     { path: "/Resume", label: "Resume", icon: FileText },
     { path: "/projects", label: "Projects", icon: Folder },
-    { path: "/Servies", label: "Servies", icon: Server    },
+    // { path: "/Servies", label: "Servies", icon: Server    },
     { path: "/contact", label: "Contact", icon: Mail },
   ];
 
