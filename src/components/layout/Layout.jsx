@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { Home, FileText, Folder, Mail, Server    } from "lucide-react";
+import { Home, FileText, Folder, Mail, Server, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../Loader/Loader";
 import PageTransition from "../Transition/PageTransition";
 import SpaceDevCursor from "../CosmicDevCursor/CosmicDevCursor";
-
 
 const Layout = () => {
   const [activePage, setActivePage] = useState("/");
@@ -14,6 +13,7 @@ const Layout = () => {
   const location = useLocation();
   const [isLoading, setIsLoading] = useState(false);
   const [hoveredPath, setHoveredPath] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +28,7 @@ const Layout = () => {
 
   useEffect(() => {
     setActivePage(location.pathname);
+    setIsMobileMenuOpen(false); // Close menu on route change
   }, [location.pathname]);
 
   useEffect(() => {
@@ -36,21 +37,38 @@ const Layout = () => {
     return () => clearTimeout(timer);
   }, [location.pathname]);
 
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (isMobileMenuOpen && !event.target.closest('.mobile-menu-container')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
   const navLinks = [
     { path: "/", label: "Home", icon: Home },
     { path: "/Resume", label: "Resume", icon: FileText },
     { path: "/projects", label: "Projects", icon: Folder },
-    // { path: "/Servies", label: "Servies", icon: Server    },
+    // { path: "/Services", label: "Services", icon: Server },
     { path: "/contact", label: "Contact", icon: Mail },
   ];
 
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <PageTransition>
-      < SpaceDevCursor/>
+      <SpaceDevCursor />
 
       <div className="min-h-screen bg-black flex flex-col">
         <AnimatePresence mode="wait">{isLoading && <Loader />}</AnimatePresence>
-        {/* Top Navbar */}
+        
+        {/* Top Navbar - Desktop */}
         <motion.nav
           className="fixed top-0 w-full z-40 hidden md:block"
           initial={{ y: 0 }}
@@ -130,28 +148,114 @@ const Layout = () => {
           </div>
         </motion.nav>
 
-        {/* Bottom Navbar */}
-        <nav className="fixed bottom-0 w-full z-40 md:hidden">
-          <div className="backdrop-blur-md bg-gradient-to-t from-[#0f0f1a]/80 to-[#1a0b2e]/80 px-4 py-3">
-            <div className="flex justify-around items-center">
-              {navLinks.map((link) => {
-                const Icon = link.icon;
-                return (
-                  <Link key={link.path} to={link.path} className="p-2">
-                    <Icon
-                      size={24}
-                      className={`${
-                        location.pathname === link.path
-                          ? "text-violet-400"
-                          : "text-gray-300"
-                      } transition-colors duration-200`}
-                    />
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </nav>
+        {/* Mobile Hamburger Menu Button */}
+        <motion.div
+          className="fixed top-4 right-4 z-50 md:hidden mobile-menu-container"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3 }}
+        >
+          <motion.button
+            onClick={toggleMobileMenu}
+            className="p-3 backdrop-blur-xl bg-gradient-to-r from-gray-900/90 via-violet-950/90 to-gray-900/90 rounded-xl border border-violet-500/20 shadow-2xl shadow-violet-500/10"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <motion.div
+              animate={{ rotate: isMobileMenuOpen ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              {isMobileMenuOpen ? (
+                <X size={24} className="text-violet-300" />
+              ) : (
+                <Menu size={24} className="text-violet-300" />
+              )}
+            </motion.div>
+          </motion.button>
+        </motion.div>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <>
+              {/* Backdrop */}
+              <motion.div
+                className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => setIsMobileMenuOpen(false)}
+              />
+
+              {/* Mobile Menu */}
+              <motion.div
+                className="fixed top-20 right-4 z-50 md:hidden mobile-menu-container"
+                initial={{ opacity: 0, scale: 0.8, y: -20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.8, y: -20 }}
+                transition={{ duration: 0.3 }}
+              >
+                <div className="backdrop-blur-xl bg-gradient-to-b from-gray-900/95 via-violet-950/95 to-gray-900/95 rounded-2xl border border-violet-500/20 shadow-2xl shadow-violet-500/20 p-4 min-w-[200px]">
+                  {/* Glowing background effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 via-fuchsia-600/5 to-violet-600/5 blur-xl opacity-50 rounded-2xl" />
+                  
+                  <div className="relative space-y-2">
+                    {navLinks.map((link, index) => {
+                      const Icon = link.icon;
+                      return (
+                        <motion.div
+                          key={link.path}
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.2, delay: index * 0.1 }}
+                        >
+                          <Link
+                            to={link.path}
+                            className="flex items-center space-x-3 px-4 py-3 rounded-xl transition-all duration-200 hover:bg-violet-600/20 group"
+                            onClick={() => setIsMobileMenuOpen(false)}
+                          >
+                            <Icon
+                              size={20}
+                              className={`transition-colors duration-200 ${
+                                location.pathname === link.path
+                                  ? "text-violet-400"
+                                  : "text-gray-300 group-hover:text-violet-300"
+                              }`}
+                            />
+                            <span
+                              className={`font-medium transition-colors duration-200 ${
+                                location.pathname === link.path
+                                  ? "text-violet-300"
+                                  : "text-gray-300 group-hover:text-violet-200"
+                              }`}
+                            >
+                              {link.label}
+                            </span>
+                            
+                            {/* Active indicator */}
+                            {location.pathname === link.path && (
+                              <motion.div
+                                className="ml-auto w-2 h-2 bg-violet-400 rounded-full"
+                                layoutId="mobile-active-indicator"
+                                transition={{
+                                  type: "spring",
+                                  stiffness: 500,
+                                  damping: 30,
+                                }}
+                              />
+                            )}
+                          </Link>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* Main Content */}
         <AnimatePresence mode="wait">
@@ -161,7 +265,7 @@ const Layout = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex-grow pb-16 pt-16 md:pb-0 "
+            className="flex-grow pt-4 md:pt-16"
           >
             <Outlet />
           </motion.main>
@@ -169,13 +273,13 @@ const Layout = () => {
 
         {/* Footer */}
         <footer
-          className="bg-gradient-to-r from-[#0a0f24] via-[#0d1638] to-[#0a0f24] text-white text-center py-4 w-full fixed bottom-16 md:bottom-0 md:relative hidden sm:block"
+          className="bg-gradient-to-r from-[#0a0f24] via-[#0d1638] to-[#0a0f24] text-white text-center py-4 w-full md:relative"
           style={{
             backgroundImage:
               "radial-gradient(circle at center, #1c2b54, #0a0f24)",
           }}
         >
-          <p className="text-mm font-light" style={{ fontWeight: "600" }}>
+          <p className="text-sm font-light px-4" style={{ fontWeight: "600" }}>
             &copy; {new Date().getFullYear()} -- Mohamed Sari -- Built with ❤️
             and React - tailwind - three js .
           </p>
