@@ -13,11 +13,7 @@ const Quote = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 1.2, duration: 0.8 }}
       className="absolute top-4 left-0 right-0 mx-auto w-full max-w-xl text-center z-20"
-    >
-      <div className="bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-sm p-3 rounded-lg border border-gray-800/50">
-        <p className="text-gray-300 italic text-sm md:text-base">"We love what we do, so we do it best"</p>
-      </div>
-    </motion.div>
+    ></motion.div>
   )
 }
 
@@ -147,152 +143,278 @@ const SpaceBackground = () => {
     window.addEventListener("touchmove", handleTouchMove)
     handleResize()
 
-    // Enhanced icons with more complex designs
-    const icons = [
-      // React icon with orbital rings
+    // Programming technology icons with orbital paths
+    const techIcons = [
+      // React
       {
-        draw: (ctx, x, y, size, time) => {
-          const orbitSpeed = time * 2
-          ctx.beginPath()
-          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed, 0, Math.PI * 2)
-          ctx.moveTo(x - size, y)
-          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed + Math.PI / 3, 0, Math.PI * 2)
-          ctx.moveTo(x - size, y)
-          ctx.ellipse(x, y, size * 2, size * 0.8, orbitSpeed - Math.PI / 3, 0, Math.PI * 2)
-          // Add pulsing core
-          ctx.arc(x, y, size * 0.5, 0, Math.PI * 2)
-          ctx.stroke()
-        },
+        name: "React",
         color: "61, 184, 255",
-      },
-      // Enhanced TypeScript icon
-      {
         draw: (ctx, x, y, size, time) => {
-          const pulse = Math.sin(time * 3) * 0.2 + 1
+          const orbitSpeed = time * 1.5
+          ctx.strokeStyle = `rgba(61, 184, 255, 0.8)`
+          ctx.lineWidth = 2
           ctx.beginPath()
-          ctx.rect(x - size * 1.2 * pulse, y - size * 1.2 * pulse, size * 2.4 * pulse, size * 2.4 * pulse)
-          // Add dynamic crosshairs
-          ctx.moveTo(x - size * 1.5, y)
-          ctx.lineTo(x + size * 1.5, y)
-          ctx.moveTo(x, y - size * 1.5)
-          ctx.lineTo(x, y + size * 1.5)
+          // React atom symbol with orbiting electrons
+          ctx.ellipse(x, y, size * 2.5, size * 1, orbitSpeed, 0, Math.PI * 2)
+          ctx.ellipse(x, y, size * 2.5, size * 1, orbitSpeed + Math.PI / 3, 0, Math.PI * 2)
+          ctx.ellipse(x, y, size * 2.5, size * 1, orbitSpeed - Math.PI / 3, 0, Math.PI * 2)
           ctx.stroke()
+          // Core
+          ctx.beginPath()
+          ctx.arc(x, y, size * 0.4, 0, Math.PI * 2)
+          ctx.fillStyle = `rgba(61, 184, 255, 1)`
+          ctx.fill()
         },
+      },
+      // JavaScript
+      {
+        name: "JavaScript",
+        color: "247, 223, 30",
+        draw: (ctx, x, y, size, time) => {
+          const pulse = Math.sin(time * 2) * 0.2 + 1
+          ctx.fillStyle = `rgba(247, 223, 30, 0.9)`
+          ctx.fillRect(x - size * 1.5 * pulse, y - size * 1.5 * pulse, size * 3 * pulse, size * 3 * pulse)
+          // JS text
+          ctx.fillStyle = "rgba(0, 0, 0, 1)"
+          ctx.font = `${size * 1.2}px bold sans-serif`
+          ctx.textAlign = "center"
+          ctx.fillText("JS", x, y + size * 0.4)
+        },
+      },
+      // TypeScript
+      {
+        name: "TypeScript",
         color: "0, 122, 204",
+        draw: (ctx, x, y, size, time) => {
+          const pulse = Math.sin(time * 2.5) * 0.15 + 1
+          ctx.fillStyle = `rgba(0, 122, 204, 0.9)`
+          ctx.fillRect(x - size * 1.5 * pulse, y - size * 1.5 * pulse, size * 3 * pulse, size * 3 * pulse)
+          // TS text
+          ctx.fillStyle = "rgba(255, 255, 255, 1)"
+          ctx.font = `${size * 1.1}px bold sans-serif`
+          ctx.textAlign = "center"
+          ctx.fillText("TS", x, y + size * 0.4)
+        },
+      },
+      // HTML5
+      {
+        name: "HTML5",
+        color: "227, 79, 38",
+        draw: (ctx, x, y, size, time) => {
+          ctx.fillStyle = `rgba(227, 79, 38, 0.9)`
+          // HTML5 shield shape
+          ctx.beginPath()
+          ctx.moveTo(x, y - size * 2)
+          ctx.lineTo(x - size * 1.5, y - size * 2)
+          ctx.lineTo(x - size * 1.2, y + size * 1.5)
+          ctx.lineTo(x, y + size * 2)
+          ctx.lineTo(x + size * 1.2, y + size * 1.5)
+          ctx.lineTo(x + size * 1.5, y - size * 2)
+          ctx.closePath()
+          ctx.fill()
+          // HTML text
+          ctx.fillStyle = "rgba(255, 255, 255, 1)"
+          ctx.font = `${size * 0.8}px bold sans-serif`
+          ctx.textAlign = "center"
+          ctx.fillText("5", x, y + size * 0.3)
+        },
+      },
+      // CSS3
+      {
+        name: "CSS3",
+        color: "21, 114, 182",
+        draw: (ctx, x, y, size, time) => {
+          ctx.fillStyle = `rgba(21, 114, 182, 0.9)`
+          // CSS3 shield shape
+          ctx.beginPath()
+          ctx.moveTo(x, y - size * 2)
+          ctx.lineTo(x - size * 1.5, y - size * 2)
+          ctx.lineTo(x - size * 1.2, y + size * 1.5)
+          ctx.lineTo(x, y + size * 2)
+          ctx.lineTo(x + size * 1.2, y + size * 1.5)
+          ctx.lineTo(x + size * 1.5, y - size * 2)
+          ctx.closePath()
+          ctx.fill()
+          // CSS text
+          ctx.fillStyle = "rgba(255, 255, 255, 1)"
+          ctx.font = `${size * 0.8}px bold sans-serif`
+          ctx.textAlign = "center"
+          ctx.fillText("3", x, y + size * 0.3)
+        },
+      },
+      // Node.js
+      {
+        name: "Node.js",
+        color: "104, 160, 99",
+        draw: (ctx, x, y, size, time) => {
+          ctx.fillStyle = `rgba(104, 160, 99, 0.9)`
+          // Node.js hexagon
+          ctx.beginPath()
+          for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3 + time * 0.5
+            const px = x + Math.cos(angle) * size * 1.5
+            const py = y + Math.sin(angle) * size * 1.5
+            if (i === 0) ctx.moveTo(px, py)
+            else ctx.lineTo(px, py)
+          }
+          ctx.closePath()
+          ctx.fill()
+        },
+      },
+      // MongoDB
+      {
+        name: "MongoDB",
+        color: "77, 179, 61",
+        draw: (ctx, x, y, size, time) => {
+          ctx.fillStyle = `rgba(77, 179, 61, 0.9)`
+          // MongoDB leaf shape
+          ctx.beginPath()
+          ctx.ellipse(x, y, size * 0.8, size * 2, time * 0.3, 0, Math.PI * 2)
+          ctx.fill()
+          ctx.beginPath()
+          ctx.ellipse(x, y, size * 1.5, size * 1, time * 0.3, 0, Math.PI * 2)
+          ctx.fill()
+        },
+      },
+      // Git
+      {
+        name: "Git",
+        color: "240, 80, 50",
+        draw: (ctx, x, y, size, time) => {
+          ctx.strokeStyle = `rgba(240, 80, 50, 0.9)`
+          ctx.lineWidth = 3
+          // Git branching lines
+          ctx.beginPath()
+          ctx.moveTo(x - size * 2, y)
+          ctx.lineTo(x + size * 2, y)
+          ctx.moveTo(x, y - size * 1.5)
+          ctx.lineTo(x + size * 1.5, y + size * 1.5)
+          ctx.moveTo(x, y + size * 1.5)
+          ctx.lineTo(x - size * 1.5, y - size * 1.5)
+          ctx.stroke()
+          // Git nodes
+          ctx.fillStyle = `rgba(240, 80, 50, 1)`
+          ctx.beginPath()
+          ctx.arc(x - size * 2, y, size * 0.4, 0, Math.PI * 2)
+          ctx.arc(x + size * 2, y, size * 0.4, 0, Math.PI * 2)
+          ctx.arc(x, y, size * 0.4, 0, Math.PI * 2)
+          ctx.fill()
+        },
       },
     ]
 
-    // Adjust number of elements based on screen size
-    const getElementCount = () => (isMobile ? 15 : 25)
+    // Orbital paths for icons
+    const orbitalPaths = [
+      { centerX: 0.3, centerY: 0.4, radiusX: 200, radiusY: 150, speed: 0.8 },
+      { centerX: 0.7, centerY: 0.3, radiusX: 180, radiusY: 120, speed: -0.6 },
+      { centerX: 0.5, centerY: 0.6, radiusX: 220, radiusY: 100, speed: 1.2 },
+      { centerX: 0.2, centerY: 0.7, radiusX: 160, radiusY: 140, speed: -0.9 },
+      { centerX: 0.8, centerY: 0.6, radiusX: 190, radiusY: 110, speed: 0.7 },
+      { centerX: 0.4, centerY: 0.2, radiusX: 170, radiusY: 130, speed: -1.1 },
+      { centerX: 0.6, centerY: 0.8, radiusX: 200, radiusY: 90, speed: 0.5 },
+      { centerX: 0.1, centerY: 0.5, radiusX: 150, radiusY: 160, speed: -0.4 },
+    ]
 
-    // Enhanced floating elements with interactive behavior
-    const floatingElements = Array.from({ length: getElementCount() }, () => ({
+    // Create floating tech icons with orbital motion
+    const floatingIcons = techIcons.map((icon, index) => {
+      const path = orbitalPaths[index % orbitalPaths.length]
+      return {
+        ...icon,
+        path,
+        angle: (index / techIcons.length) * Math.PI * 2,
+        size: Math.random() * 8 + 12,
+        glowIntensity: Math.random() * 0.4 + 0.6,
+        pulseOffset: Math.random() * Math.PI * 2,
+      }
+    })
+
+    // Enhanced stars with twinkling effect
+    const stars = Array.from({ length: isMobile ? 60 : 120 }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      size: Math.random() * (isMobile ? 2 : 3) + 2,
-      speed: Math.random() * 0.02 + 0.01,
-      angle: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.001,
-      icon: icons[Math.floor(Math.random() * icons.length)],
-      glowIntensity: Math.random() * 0.4 + 0.3,
-      pulseOffset: Math.random() * Math.PI * 2,
-      pulseSpeed: Math.random() * 0.004 + 0.002,
-      interactiveRadius: Math.random() * 100 + 50,
-    }))
-
-    // Enhanced stars with dynamic trails
-    const stars = Array.from({ length: isMobile ? 40 : 80 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 1.5,
-      speed: Math.random() * 0.5 + 0.1,
-      trail: [],
-      maxTrailLength: Math.floor(Math.random() * 10) + 5,
-      color: Math.random() > 0.5 ? "147, 51, 234" : "64, 147, 255",
+      size: Math.random() * 2 + 0.5,
+      twinkleSpeed: Math.random() * 0.02 + 0.01,
+      twinkleOffset: Math.random() * Math.PI * 2,
+      brightness: Math.random() * 0.8 + 0.2,
     }))
 
     const animate = () => {
       if (!ctx || !canvas) return
 
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
+      // Clear with space gradient
+      const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
+      gradient.addColorStop(0, "rgba(4, 4, 18, 1)")
+      gradient.addColorStop(0.5, "rgba(10, 10, 32, 1)")
+      gradient.addColorStop(1, "rgba(2, 2, 12, 1)")
+      ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
       const time = Date.now() * 0.001
 
-      // Enhanced star animation with trails
+      // Draw twinkling stars
       stars.forEach((star) => {
-        star.y += star.speed
-        if (star.y > canvas.height) {
-          star.y = 0
-          star.trail = []
-        }
-
-        // Add current position to trail
-        star.trail.unshift({ x: star.x, y: star.y })
-        if (star.trail.length > star.maxTrailLength) {
-          star.trail.pop()
-        }
-
-        // Draw trail
-        star.trail.forEach((point, index) => {
-          const alpha = (1 - index / star.maxTrailLength) * 0.3
-          ctx.fillStyle = `rgba(${star.color}, ${alpha})`
-          ctx.beginPath()
-          ctx.arc(point.x, point.y, star.size * (1 - index / star.maxTrailLength), 0, Math.PI * 2)
-          ctx.fill()
-        })
+        const twinkle = Math.sin(time * star.twinkleSpeed + star.twinkleOffset) * 0.5 + 0.5
+        const alpha = star.brightness * twinkle
+        ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`
+        ctx.beginPath()
+        ctx.arc(star.x, star.y, star.size * twinkle, 0, Math.PI * 2)
+        ctx.fill()
       })
 
-      // Enhanced floating elements with interactive behavior
-      floatingElements.forEach((element) => {
-        // Calculate distance to mouse
-        const dx = mousePosition.x - element.x
-        const dy = mousePosition.y - element.y
+      // Draw orbital paths
+      orbitalPaths.forEach((path, index) => {
+        const centerX = path.centerX * canvas.width
+        const centerY = path.centerY * canvas.height
+
+        ctx.strokeStyle = `rgba(100, 50, 200, 0.1)`
+        ctx.lineWidth = 1
+        ctx.setLineDash([5, 10])
+        ctx.beginPath()
+        ctx.ellipse(centerX, centerY, path.radiusX, path.radiusY, 0, 0, Math.PI * 2)
+        ctx.stroke()
+        ctx.setLineDash([])
+      })
+
+      // Draw floating tech icons along orbital paths
+      floatingIcons.forEach((icon) => {
+        const centerX = icon.path.centerX * canvas.width
+        const centerY = icon.path.centerY * canvas.height
+
+        // Calculate position along orbital path
+        icon.angle += icon.path.speed * 0.01
+        const x = centerX + Math.cos(icon.angle) * icon.path.radiusX
+        const y = centerY + Math.sin(icon.angle) * icon.path.radiusY
+
+        // Calculate distance to mouse for interaction
+        const dx = mousePosition.x - x
+        const dy = mousePosition.y - y
         const distance = Math.sqrt(dx * dx + dy * dy)
+        const interactionRadius = 100
 
-        // Interactive behavior
-        if (distance < element.interactiveRadius) {
-          const angle = Math.atan2(dy, dx)
-          element.x -= Math.cos(angle) * 2
-          element.y -= Math.sin(angle) * 2
-          element.glowIntensity = 0.8
+        // Interactive glow effect
+        if (distance < interactionRadius) {
+          const intensity = 1 - distance / interactionRadius
+          ctx.shadowColor = `rgba(${icon.color}, ${intensity * 0.8})`
+          ctx.shadowBlur = 30 * intensity
         } else {
-          element.glowIntensity = Math.max(0.3, element.glowIntensity - 0.02)
-          element.x += Math.cos(element.angle) * element.speed
-          element.y += Math.sin(element.angle) * element.speed
+          ctx.shadowColor = `rgba(${icon.color}, ${icon.glowIntensity * 0.3})`
+          ctx.shadowBlur = 15
         }
 
-        // Wrap around screen edges
-        element.x = (element.x + canvas.width) % canvas.width
-        element.y = (element.y + canvas.height) % canvas.height
-
-        // Enhanced drawing with effects
+        // Draw the tech icon
         ctx.save()
-        ctx.translate(element.x, element.y)
+        ctx.translate(x, y)
 
-        const pulse = Math.sin(time * element.pulseSpeed * 5 + element.pulseOffset)
-        const scale = 1 + pulse * 0.2
+        const pulse = Math.sin(time * 2 + icon.pulseOffset) * 0.1 + 1
+        ctx.scale(pulse, pulse)
 
-        ctx.scale(scale, scale)
-        ctx.rotate(time * element.rotationSpeed)
-
-        // Enhanced glow effect
-        ctx.shadowColor = `rgba(${element.icon.color}, ${element.glowIntensity})`
-        ctx.shadowBlur = 20 + pulse * 10
-        ctx.strokeStyle = `rgba(${element.icon.color}, ${element.glowIntensity})`
-        ctx.lineWidth = 1.5 + pulse * 0.5
-
-        element.icon.draw(ctx, 0, 0, element.size * 2, time)
-
-        // Add interactive rings
-        if (distance < element.interactiveRadius) {
-          ctx.beginPath()
-          ctx.arc(0, 0, element.size * 4 * (1 - distance / element.interactiveRadius), 0, Math.PI * 2)
-          ctx.strokeStyle = `rgba(${element.icon.color}, ${0.2 * (1 - distance / element.interactiveRadius)})`
-          ctx.stroke()
-        }
+        icon.draw(ctx, 0, 0, icon.size, time)
 
         ctx.restore()
+
+        // Reset shadow
+        ctx.shadowColor = "transparent"
+        ctx.shadowBlur = 0
       })
 
       animationFrameId = requestAnimationFrame(animate)
@@ -325,7 +447,7 @@ const SpaceBackground = () => {
       className="absolute inset-0 w-full h-full"
       style={{
         background: "linear-gradient(to bottom, #040412, #0a0a20)",
-        touchAction: "none", // Prevent default touch behaviors
+        touchAction: "none",
       }}
     />
   )
