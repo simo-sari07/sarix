@@ -1059,7 +1059,7 @@ const Hero = () => {
                   </>
                 ) : (
                   <>
-                    I'm specialized in <span className="font-semibold text-white">MERN stack</span> development,
+                    I'm specialized uuuuu in <span className="font-semibold text-white">MERN stack</span> development,
                     creating powerful web applications with modern technologies.
                   </>
                 )}
