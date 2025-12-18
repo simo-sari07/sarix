@@ -44,10 +44,9 @@ const GlowingButton = ({ children, primary = false, onClick }) => {
       <motion.div
         className={`
           absolute inset-0 
-          ${
-            primary
-              ? "bg-gradient-to-r from-violet-600 via-purple-600 to-violet-600"
-              : "bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-violet-600/20"
+          ${primary
+            ? "bg-gradient-to-r from-violet-600 via-purple-600 to-violet-600"
+            : "bg-gradient-to-r from-violet-600/20 via-purple-600/20 to-violet-600/20"
           }
         `}
         initial={{ x: "-100%" }}
@@ -63,11 +62,11 @@ const GlowingButton = ({ children, primary = false, onClick }) => {
           animate={
             isHovered
               ? {
-                  scale: [0, 1.5, 0],
-                  opacity: [0, 0.8, 0],
-                  x: [0, (i - 1) * 30],
-                  y: [0, (Math.random() - 0.5) * 20],
-                }
+                scale: [0, 1.5, 0],
+                opacity: [0, 0.8, 0],
+                x: [0, (i - 1) * 30],
+                y: [0, (Math.random() - 0.5) * 20],
+              }
               : {}
           }
           transition={{
@@ -98,6 +97,8 @@ const GlowingButton = ({ children, primary = false, onClick }) => {
 }
 
 
+
+
 const SpaceBackground = () => {
   const canvasRef = useRef(null)
   const [mounted, setMounted] = useState(false)
@@ -108,7 +109,7 @@ const SpaceBackground = () => {
   useEffect(() => {
     setMounted(true)
     setIsMobile(window.innerWidth < 768)
-    
+
     if (typeof window === "undefined") return
 
     const canvas = canvasRef.current
@@ -160,40 +161,40 @@ const SpaceBackground = () => {
         draw: (ctx, x, y, size, time, glow) => {
           const orbitRadius = size * 2.5
           const coreRadius = size * 0.4
-          
+
           // Electron orbits
           for (let i = 0; i < 3; i++) {
             const angle = (time * 0.8) + (i * Math.PI * 2 / 3)
             ctx.save()
             ctx.translate(x, y)
             ctx.rotate(angle)
-            
+
             // Orbit path with gradient
-            const gradient = ctx.createLinearGradient(-orbitRadius, -orbitRadius/3, orbitRadius, orbitRadius/3)
+            const gradient = ctx.createLinearGradient(-orbitRadius, -orbitRadius / 3, orbitRadius, orbitRadius / 3)
             gradient.addColorStop(0, `rgba(97, 218, 251, ${0.3 * glow})`)
             gradient.addColorStop(0.5, `rgba(97, 218, 251, ${0.8 * glow})`)
             gradient.addColorStop(1, `rgba(97, 218, 251, ${0.3 * glow})`)
-            
+
             ctx.strokeStyle = gradient
             ctx.lineWidth = 2
             ctx.beginPath()
             ctx.ellipse(0, 0, orbitRadius, orbitRadius * 0.3, 0, 0, Math.PI * 2)
             ctx.stroke()
-            
+
             // Electron
             const electronX = Math.cos(time * 3) * orbitRadius
             const electronY = Math.sin(time * 3) * orbitRadius * 0.3
-            
+
             ctx.shadowColor = `rgba(97, 218, 251, ${glow})`
             ctx.shadowBlur = 15
             ctx.fillStyle = `rgba(97, 218, 251, ${glow})`
             ctx.beginPath()
             ctx.arc(electronX, electronY, 3, 0, Math.PI * 2)
             ctx.fill()
-            
+
             ctx.restore()
           }
-          
+
           // Nucleus with pulsing effect
           const pulse = Math.sin(time * 4) * 0.3 + 1
           ctx.shadowColor = `rgba(147, 51, 234, ${glow})`
@@ -206,27 +207,27 @@ const SpaceBackground = () => {
         color: "97, 218, 251",
         weight: 3
       },
-      
+
       // Advanced Node.js Hexagon
       {
         draw: (ctx, x, y, size, time, glow) => {
           const hexRadius = size * 2
           const innerRadius = size * 1.2
-          
+
           // Outer hexagon with rotation
           ctx.save()
           ctx.translate(x, y)
           ctx.rotate(time * 0.5)
-          
+
           // Gradient hexagon
           const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, hexRadius)
           gradient.addColorStop(0, `rgba(104, 160, 99, ${glow * 0.8})`)
           gradient.addColorStop(1, `rgba(104, 160, 99, ${glow * 0.3})`)
-          
+
           ctx.fillStyle = gradient
           ctx.strokeStyle = `rgba(104, 160, 99, ${glow})`
           ctx.lineWidth = 2
-          
+
           ctx.beginPath()
           for (let i = 0; i < 6; i++) {
             const angle = (i * Math.PI) / 3
@@ -238,63 +239,63 @@ const SpaceBackground = () => {
           ctx.closePath()
           ctx.fill()
           ctx.stroke()
-          
+
           // Inner rotating elements
           ctx.rotate(-time * 1.5)
           ctx.strokeStyle = `rgba(255, 255, 255, ${glow * 0.8})`
           ctx.lineWidth = 1.5
-          
+
           for (let i = 0; i < 3; i++) {
             const angle = (i * Math.PI * 2) / 3 + time
             const startX = Math.cos(angle) * innerRadius * 0.5
             const startY = Math.sin(angle) * innerRadius * 0.5
             const endX = Math.cos(angle) * innerRadius
             const endY = Math.sin(angle) * innerRadius
-            
+
             ctx.beginPath()
             ctx.moveTo(startX, startY)
             ctx.lineTo(endX, endY)
             ctx.stroke()
           }
-          
+
           ctx.restore()
         },
         color: "104, 160, 99",
         weight: 2
       },
-      
+
       // Advanced JavaScript Lightning
       {
         draw: (ctx, x, y, size, time, glow) => {
           const points = [
-            {x: 0, y: -size * 2},
-            {x: size * 0.8, y: -size * 0.5},
-            {x: size * 0.3, y: 0},
-            {x: size * 1.2, y: size * 0.8},
-            {x: 0, y: size * 0.3},
-            {x: -size * 0.8, y: size * 1.5},
-            {x: -size * 0.3, y: size * 0.2},
-            {x: -size * 1.1, y: -size * 0.8}
+            { x: 0, y: -size * 2 },
+            { x: size * 0.8, y: -size * 0.5 },
+            { x: size * 0.3, y: 0 },
+            { x: size * 1.2, y: size * 0.8 },
+            { x: 0, y: size * 0.3 },
+            { x: -size * 0.8, y: size * 1.5 },
+            { x: -size * 0.3, y: size * 0.2 },
+            { x: -size * 1.1, y: -size * 0.8 }
           ]
-          
+
           // Animated lightning path
           const progress = (Math.sin(time * 6) + 1) / 2
-          
+
           ctx.save()
           ctx.translate(x, y)
           ctx.rotate(Math.sin(time * 2) * 0.3)
-          
+
           // Lightning bolt with gradient
           const gradient = ctx.createLinearGradient(0, -size * 2, 0, size * 2)
           gradient.addColorStop(0, `rgba(255, 223, 0, ${glow})`)
           gradient.addColorStop(0.5, `rgba(255, 165, 0, ${glow})`)
           gradient.addColorStop(1, `rgba(255, 69, 0, ${glow * 0.8})`)
-          
+
           ctx.strokeStyle = gradient
           ctx.lineWidth = 3
           ctx.shadowColor = `rgba(255, 223, 0, ${glow})`
           ctx.shadowBlur = 20
-          
+
           ctx.beginPath()
           for (let i = 0; i < points.length * progress; i++) {
             const point = points[i]
@@ -302,57 +303,57 @@ const SpaceBackground = () => {
             else ctx.lineTo(point.x, point.y)
           }
           ctx.stroke()
-          
+
           // Electric sparks
           for (let i = 0; i < 5; i++) {
             const sparkAngle = (time * 8 + i * Math.PI * 0.4) % (Math.PI * 2)
             const sparkRadius = size * (1 + Math.sin(time * 10 + i) * 0.3)
             const sparkX = Math.cos(sparkAngle) * sparkRadius
             const sparkY = Math.sin(sparkAngle) * sparkRadius
-            
+
             ctx.fillStyle = `rgba(255, 255, 255, ${glow * 0.6})`
             ctx.beginPath()
             ctx.arc(sparkX, sparkY, 2, 0, Math.PI * 2)
             ctx.fill()
           }
-          
+
           ctx.restore()
         },
         color: "255, 223, 0",
         weight: 2
       },
-      
+
       // CSS3 Shield with Animation
       {
         draw: (ctx, x, y, size, time, glow) => {
           const shieldHeight = size * 3
           const shieldWidth = size * 2.2
-          
+
           ctx.save()
           ctx.translate(x, y)
-          
+
           // Shield outline with gradient
-          const gradient = ctx.createLinearGradient(0, -shieldHeight/2, 0, shieldHeight/2)
+          const gradient = ctx.createLinearGradient(0, -shieldHeight / 2, 0, shieldHeight / 2)
           gradient.addColorStop(0, `rgba(21, 114, 182, ${glow})`)
           gradient.addColorStop(0.5, `rgba(33, 150, 243, ${glow * 0.8})`)
           gradient.addColorStop(1, `rgba(21, 114, 182, ${glow * 0.6})`)
-          
+
           ctx.fillStyle = gradient
           ctx.strokeStyle = `rgba(33, 150, 243, ${glow})`
           ctx.lineWidth = 2
-          
+
           // Shield path
           ctx.beginPath()
-          ctx.moveTo(0, -shieldHeight/2)
-          ctx.quadraticCurveTo(shieldWidth/2, -shieldHeight/3, shieldWidth/2, 0)
-          ctx.quadraticCurveTo(shieldWidth/2, shieldHeight/3, 0, shieldHeight/2)
-          ctx.quadraticCurveTo(-shieldWidth/2, shieldHeight/3, -shieldWidth/2, 0)
-          ctx.quadraticCurveTo(-shieldWidth/2, -shieldHeight/3, 0, -shieldHeight/2)
+          ctx.moveTo(0, -shieldHeight / 2)
+          ctx.quadraticCurveTo(shieldWidth / 2, -shieldHeight / 3, shieldWidth / 2, 0)
+          ctx.quadraticCurveTo(shieldWidth / 2, shieldHeight / 3, 0, shieldHeight / 2)
+          ctx.quadraticCurveTo(-shieldWidth / 2, shieldHeight / 3, -shieldWidth / 2, 0)
+          ctx.quadraticCurveTo(-shieldWidth / 2, -shieldHeight / 3, 0, -shieldHeight / 2)
           ctx.closePath()
-          
+
           ctx.fill()
           ctx.stroke()
-          
+
           // Animated CSS3 text
           const textScale = 1 + Math.sin(time * 3) * 0.1
           ctx.scale(textScale, textScale)
@@ -360,62 +361,62 @@ const SpaceBackground = () => {
           ctx.font = `${size * 0.8}px Arial, sans-serif`
           ctx.textAlign = 'center'
           ctx.textBaseline = 'middle'
-          
+
           ctx.shadowColor = `rgba(255, 255, 255, ${glow})`
           ctx.shadowBlur = 10
           ctx.fillText('3', 0, size * 0.3)
-          
+
           ctx.restore()
         },
         color: "33, 150, 243",
         weight: 2
       },
-      
+
       // Database Cylinder
       {
         draw: (ctx, x, y, size, time, glow) => {
           const width = size * 2.5
           const height = size * 3
           const ellipseHeight = size * 0.8
-          
+
           ctx.save()
           ctx.translate(x, y)
-          
+
           // Database layers with animation
           const layers = 3
           const layerSpacing = height / (layers + 1)
-          
+
           for (let i = 0; i < layers; i++) {
-            const layerY = -height/2 + layerSpacing * (i + 1)
+            const layerY = -height / 2 + layerSpacing * (i + 1)
             const pulse = Math.sin(time * 4 + i * Math.PI * 0.5) * 0.1 + 1
-            
+
             // Layer glow
             ctx.shadowColor = `rgba(76, 175, 80, ${glow * pulse})`
             ctx.shadowBlur = 15
-            
+
             ctx.strokeStyle = `rgba(76, 175, 80, ${glow * pulse})`
             ctx.fillStyle = `rgba(76, 175, 80, ${glow * 0.3 * pulse})`
             ctx.lineWidth = 2
-            
+
             // Draw ellipse
             ctx.beginPath()
-            ctx.ellipse(0, layerY, width/2 * pulse, ellipseHeight/2 * pulse, 0, 0, Math.PI * 2)
+            ctx.ellipse(0, layerY, width / 2 * pulse, ellipseHeight / 2 * pulse, 0, 0, Math.PI * 2)
             ctx.fill()
             ctx.stroke()
-            
+
             // Data dots
             for (let j = 0; j < 8; j++) {
               const dotAngle = (j * Math.PI * 2 / 8) + time * 2
               const dotX = Math.cos(dotAngle) * width * 0.3
               const dotY = layerY + Math.sin(dotAngle) * ellipseHeight * 0.2
-              
+
               ctx.fillStyle = `rgba(255, 255, 255, ${glow * 0.8})`
               ctx.beginPath()
               ctx.arc(dotX, dotY, 1.5, 0, Math.PI * 2)
               ctx.fill()
             }
           }
-          
+
           ctx.restore()
         },
         color: "76, 175, 80",
@@ -479,7 +480,7 @@ const SpaceBackground = () => {
       if (connections.length < maxConnections) {
         const element1 = floatingElements[Math.floor(Math.random() * floatingElements.length)]
         const element2 = floatingElements[Math.floor(Math.random() * floatingElements.length)]
-        
+
         if (element1 !== element2) {
           const distance = Math.sqrt((element1.x - element2.x) ** 2 + (element1.y - element2.y) ** 2)
           if (distance < 300) {
@@ -515,13 +516,13 @@ const SpaceBackground = () => {
       // Professional background with subtle gradient animation
       const time = timeRef.current
       const gradientOffset = Math.sin(time * 0.5) * 20
-      
+
       const bgGradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
       bgGradient.addColorStop(0, `rgb(4, 4, 18)`)
       bgGradient.addColorStop(0.3, `rgb(10, 10, 32)`)
       bgGradient.addColorStop(0.7, `rgb(15, 5, 25)`)
       bgGradient.addColorStop(1, `rgb(5, 5, 15)`)
-      
+
       ctx.fillStyle = bgGradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
@@ -529,19 +530,19 @@ const SpaceBackground = () => {
       particles.filter(p => p.layer === 'back').forEach((particle, index) => {
         particle.y += particle.speed
         particle.x += particle.driftX
-        
+
         if (particle.y > canvas.height) {
           particle.y = -particle.size
           particle.x = Math.random() * canvas.width
         }
-        
+
         if (particle.x > canvas.width) particle.x = 0
         if (particle.x < 0) particle.x = canvas.width
 
         // Twinkle effect
         const twinkle = Math.sin(time * particle.twinkleSpeed * 10 + particle.twinkleOffset) * 0.3 + 0.7
         const alpha = particle.opacity * twinkle * 0.6
-        
+
         // Add subtle trail
         particle.trail.unshift({ x: particle.x, y: particle.y, alpha })
         if (particle.trail.length > particle.maxTrailLength) {
@@ -561,29 +562,29 @@ const SpaceBackground = () => {
       // Update and draw connections
       connections.forEach((connection, index) => {
         connection.age++
-        
+
         // Update opacity
         if (connection.age < 60) {
           connection.opacity = Math.min(connection.targetOpacity, connection.opacity + 0.02)
         } else if (connection.age > connection.lifespan - 60) {
           connection.opacity = Math.max(0, connection.opacity - 0.02)
         }
-        
+
         // Remove dead connections
         if (connection.age > connection.lifespan) {
           connections.splice(index, 1)
           createConnection() // Create new one
           return
         }
-        
+
         const distance = Math.sqrt(
-          (connection.element1.x - connection.element2.x) ** 2 + 
+          (connection.element1.x - connection.element2.x) ** 2 +
           (connection.element1.y - connection.element2.y) ** 2
         )
-        
+
         if (distance < 400 && connection.opacity > 0) {
           const pulse = Math.sin(time * connection.pulseSpeed * 100) * 0.3 + 0.7
-          
+
           // Gradient line
           const gradient = ctx.createLinearGradient(
             connection.element1.x, connection.element1.y,
@@ -592,17 +593,17 @@ const SpaceBackground = () => {
           gradient.addColorStop(0, `rgba(147, 51, 234, ${connection.opacity * pulse})`)
           gradient.addColorStop(0.5, `rgba(99, 102, 241, ${connection.opacity * pulse * 1.2})`)
           gradient.addColorStop(1, `rgba(147, 51, 234, ${connection.opacity * pulse})`)
-          
+
           ctx.strokeStyle = gradient
           ctx.lineWidth = 1
           ctx.shadowColor = `rgba(147, 51, 234, ${connection.opacity * pulse})`
           ctx.shadowBlur = 5
-          
+
           ctx.beginPath()
           ctx.moveTo(connection.element1.x, connection.element1.y)
           ctx.lineTo(connection.element2.x, connection.element2.y)
           ctx.stroke()
-          
+
           ctx.shadowBlur = 0
         }
       })
@@ -615,12 +616,12 @@ const SpaceBackground = () => {
           const distanceToMouse = Math.sqrt(
             (mousePosition.x - element.x) ** 2 + (mousePosition.y - element.y) ** 2
           )
-          
+
           // Magnetic attraction/repulsion
           if (distanceToMouse < element.interactiveRadius) {
             const angle = Math.atan2(mousePosition.y - element.y, mousePosition.x - element.x)
             const force = (element.interactiveRadius - distanceToMouse) / element.interactiveRadius
-            
+
             // Repulsion when very close, attraction when medium distance
             if (distanceToMouse < element.interactiveRadius * 0.3) {
               element.x -= Math.cos(angle) * element.repulsionForce * force
@@ -634,41 +635,41 @@ const SpaceBackground = () => {
           } else {
             element.glowIntensity = Math.max(element.baseGlow, element.glowIntensity - 0.02)
           }
-          
+
           // Organic floating motion
           const floatX = Math.sin(time * element.frequency + element.phase) * element.amplitude
           const floatY = Math.cos(time * element.frequency * 1.3 + element.phase) * element.amplitude * 0.7
-          
+
           element.targetX = (window.innerWidth / 2) + floatX + Math.cos(element.angle) * 100
           element.targetY = (window.innerHeight / 2) + floatY + Math.sin(element.angle) * 100
-          
+
           // Smooth movement towards target
           element.x += (element.targetX - element.x) * 0.02
           element.y += (element.targetY - element.y) * 0.02
-          
+
           // Boundary wrapping with smooth transition
           if (element.x < -100) element.x = window.innerWidth + 100
           if (element.x > window.innerWidth + 100) element.x = -100
           if (element.y < -100) element.y = window.innerHeight + 100
           if (element.y > window.innerHeight + 100) element.y = -100
-          
+
           // Advance angle for orbital motion
           element.angle += element.speed * 0.01
-          
+
           // Professional rendering with enhanced effects
           ctx.save()
-          
+
           // Advanced glow system
           const pulse = Math.sin(time * element.pulseSpeed * 50 + element.pulseOffset)
           const dynamicGlow = element.glowIntensity * (0.8 + pulse * 0.2)
-          
+
           // Multi-layered shadow for depth
           ctx.shadowColor = `rgba(${element.icon.color}, ${dynamicGlow * 0.8})`
           ctx.shadowBlur = 25 + pulse * 10
-          
+
           // Draw icon with enhanced effects
           element.icon.draw(ctx, element.x, element.y, element.size, time, dynamicGlow)
-          
+
           ctx.restore()
         })
 
@@ -676,15 +677,15 @@ const SpaceBackground = () => {
       particles.filter(p => p.layer === 'front').forEach((particle) => {
         particle.y += particle.speed * 0.5
         particle.x += particle.driftX * 0.5
-        
+
         if (particle.y > canvas.height) {
           particle.y = -particle.size
           particle.x = Math.random() * canvas.width
         }
-        
+
         const twinkle = Math.sin(time * particle.twinkleSpeed * 10 + particle.twinkleOffset) * 0.4 + 0.6
         const alpha = particle.opacity * twinkle
-        
+
         ctx.fillStyle = `rgba(${particle.color}, ${alpha})`
         ctx.shadowColor = `rgba(${particle.color}, ${alpha})`
         ctx.shadowBlur = 8
@@ -735,154 +736,7 @@ const SpaceBackground = () => {
 
 
 
-    // Adjust number of elements based on screen size
-    const getElementCount = () => (isMobile ? 15 : 25)
 
-    // Enhanced floating elements with interactive behavior
-    const floatingElements = Array.from({ length: getElementCount() }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * (isMobile ? 2 : 3) + 2,
-      speed: Math.random() * 0.02 + 0.01,
-      angle: Math.random() * Math.PI * 2,
-      rotationSpeed: (Math.random() - 0.5) * 0.001,
-      icon: icons[Math.floor(Math.random() * icons.length)],
-      glowIntensity: Math.random() * 0.4 + 0.3,
-      pulseOffset: Math.random() * Math.PI * 2,
-      pulseSpeed: Math.random() * 0.004 + 0.002,
-      interactiveRadius: Math.random() * 100 + 50,
-    }))
-
-    // Enhanced stars with dynamic trails
-    const stars = Array.from({ length: isMobile ? 40 : 80 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      size: Math.random() * 1.5,
-      speed: Math.random() * 0.5 + 0.1,
-      trail: [],
-      maxTrailLength: Math.floor(Math.random() * 10) + 5,
-      color: Math.random() > 0.5 ? "147, 51, 234" : "64, 147, 255",
-    }))
-
-    const animate = () => {
-      if (!ctx || !canvas) return
-
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      const time = Date.now() * 0.001
-
-      // Enhanced star animation with trails
-      stars.forEach((star) => {
-        star.y += star.speed
-        if (star.y > canvas.height) {
-          star.y = 0
-          star.trail = []
-        }
-
-        // Add current position to trail
-        star.trail.unshift({ x: star.x, y: star.y })
-        if (star.trail.length > star.maxTrailLength) {
-          star.trail.pop()
-        }
-
-        // Draw trail
-        star.trail.forEach((point, index) => {
-          const alpha = (1 - index / star.maxTrailLength) * 0.3
-          ctx.fillStyle = `rgba(${star.color}, ${alpha})`
-          ctx.beginPath()
-          ctx.arc(point.x, point.y, star.size * (1 - index / star.maxTrailLength), 0, Math.PI * 2)
-          ctx.fill()
-        })
-      })
-
-      // Enhanced floating elements with interactive behavior
-      floatingElements.forEach((element) => {
-        // Calculate distance to mouse
-        const dx = mousePosition.x - element.x
-        const dy = mousePosition.y - element.y
-        const distance = Math.sqrt(dx * dx + dy * dy)
-
-        // Interactive behavior
-        if (distance < element.interactiveRadius) {
-          const angle = Math.atan2(dy, dx)
-          element.x -= Math.cos(angle) * 2
-          element.y -= Math.sin(angle) * 2
-          element.glowIntensity = 0.8
-        } else {
-          element.glowIntensity = Math.max(0.3, element.glowIntensity - 0.02)
-          element.x += Math.cos(element.angle) * element.speed
-          element.y += Math.sin(element.angle) * element.speed
-        }
-
-        // Wrap around screen edges
-        element.x = (element.x + canvas.width) % canvas.width
-        element.y = (element.y + canvas.height) % canvas.height
-
-        // Enhanced drawing with effects
-        ctx.save()
-        ctx.translate(element.x, element.y)
-
-        const pulse = Math.sin(time * element.pulseSpeed * 5 + element.pulseOffset)
-        const scale = 1 + pulse * 0.2
-
-        ctx.scale(scale, scale)
-        ctx.rotate(time * element.rotationSpeed)
-
-        // Enhanced glow effect
-        ctx.shadowColor = `rgba(${element.icon.color}, ${element.glowIntensity})`
-        ctx.shadowBlur = 20 + pulse * 10
-        ctx.strokeStyle = `rgba(${element.icon.color}, ${element.glowIntensity})`
-        ctx.lineWidth = 1.5 + pulse * 0.5
-
-        element.icon.draw(ctx, 0, 0, element.size * 2, time)
-
-        // Add interactive rings
-        if (distance < element.interactiveRadius) {
-          ctx.beginPath()
-          ctx.arc(0, 0, element.size * 4 * (1 - distance / element.interactiveRadius), 0, Math.PI * 2)
-          ctx.strokeStyle = `rgba(${element.icon.color}, ${0.2 * (1 - distance / element.interactiveRadius)})`
-          ctx.stroke()
-        }
-
-        ctx.restore()
-      })
-
-      animationFrameId = requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    return () => {
-      window.removeEventListener("resize", handleResize)
-      window.removeEventListener("mousemove", handleMouseMove)
-      window.removeEventListener("touchmove", handleTouchMove)
-      if (animationFrameId) {
-        cancelAnimationFrame(animationFrameId)
-      }
-    }
-  }, [mounted])
-
-  if (!mounted) {
-    return (
-      <div
-        className="absolute inset-0 w-full h-full"
-        style={{ background: "linear-gradient(to bottom, #040412, #0a0a20)" }}
-      />
-    )
-  }
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{
-        background: "linear-gradient(to bottom, #040412, #0a0a20)",
-        touchAction: "none", // Prevent default touch behaviors
-      }}
-    />
-  )
-}
 
 // AnimatedText Component
 const AnimatedText = ({ text, className = "", delay = 0 }) => {
@@ -1160,7 +1014,7 @@ const Hero = () => {
               </GlowingButton>
 
               <GlowingButton>
-                <Link href="/contact" className="no-underline text-inherit">
+                <Link to="/contact" className="no-underline text-inherit">
                   Contact
                 </Link>
               </GlowingButton>
