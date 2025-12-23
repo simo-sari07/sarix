@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import pfoto from "../../../public/pro.webp";
 
 const ProfilePhoto = () => {
   return (
@@ -16,9 +15,9 @@ const ProfilePhoto = () => {
           ease: "linear",
         }}
       />
-      {/* <div className="absolute inset-2 rounded-full overflow-hidden">
-        <img src={pfoto} alt="Profile" className="w-full h-full object-cover" />
-      </div> */}
+      <div className="absolute inset-2 rounded-full overflow-hidden">
+        <img src={"https://res.cloudinary.com/da63nggkh/image/upload/v1766450671/ef9cc589-6aab-4669-9e53-9415952466f0-modified_y5ncda.png"} alt="Profile" className="w-full h-full object-cover" />
+      </div>
     </div>
   );
 };
