@@ -65,12 +65,12 @@ const Layout = () => {
     <PageTransition>
       <SpaceDevCursor />
 
-      <div className="min-h-screen bg-black flex flex-col">
+      <div className="min-h-screen bg-gradient-to-b from-black to-violet-800 flex flex-col">
         <AnimatePresence mode="wait">{isLoading && <Loader />}</AnimatePresence>
-        
+
         {/* Top Navbar - Desktop */}
         <motion.nav
-          className="fixed top-0 w-full z-40 hidden md:block"
+          className="fixed top-0 w-full z-40 hidden md:block "
           initial={{ y: 0 }}
           animate={{ y: visible ? 0 : -100 }}
           transition={{ duration: 0.3 }}
@@ -81,7 +81,7 @@ const Layout = () => {
               <div className="absolute inset-0 bg-gradient-to-r from-violet-600/10 via-fuchsia-600/10 to-violet-600/10 blur-3xl opacity-50" />
 
               {/* Main navigation container */}
-              <div className="relative flex space-x-8 backdrop-blur-xl bg-gradient-to-r from-gray-900/90 via-violet-950/90 to-gray-900/90 px-8 py-3 rounded-2xl border border-violet-500/10 shadow-2xl shadow-violet-500/10">
+              <div className="relative flex space-x-8 px-8 py-3 rounded-2xl">
                 {navLinks.map((link) => (
                   <Link
                     key={link.path}
@@ -109,11 +109,10 @@ const Layout = () => {
 
                     {/* Link text */}
                     <span
-                      className={`text-sm font-medium transition-all duration-200 ${
-                        location.pathname === link.path
+                      className={`text-sm font-medium transition-all duration-200 ${location.pathname === link.path
                           ? "text-violet-300"
                           : "text-gray-300 hover:text-violet-200"
-                      }`}
+                        }`}
                     >
                       {link.label}
                     </span>
@@ -200,7 +199,7 @@ const Layout = () => {
                 <div className="backdrop-blur-xl bg-gradient-to-b from-gray-900/95 via-violet-950/95 to-gray-900/95 rounded-2xl border border-violet-500/20 shadow-2xl shadow-violet-500/20 p-4 min-w-[200px]">
                   {/* Glowing background effect */}
                   <div className="absolute inset-0 bg-gradient-to-r from-violet-600/5 via-fuchsia-600/5 to-violet-600/5 blur-xl opacity-50 rounded-2xl" />
-                  
+
                   <div className="relative space-y-2">
                     {navLinks.map((link, index) => {
                       const Icon = link.icon;
@@ -218,22 +217,20 @@ const Layout = () => {
                           >
                             <Icon
                               size={20}
-                              className={`transition-colors duration-200 ${
-                                location.pathname === link.path
+                              className={`transition-colors duration-200 ${location.pathname === link.path
                                   ? "text-violet-400"
                                   : "text-gray-300 group-hover:text-violet-300"
-                              }`}
+                                }`}
                             />
                             <span
-                              className={`font-medium transition-colors duration-200 ${
-                                location.pathname === link.path
+                              className={`font-medium transition-colors duration-200 ${location.pathname === link.path
                                   ? "text-violet-300"
                                   : "text-gray-300 group-hover:text-violet-200"
-                              }`}
+                                }`}
                             >
                               {link.label}
                             </span>
-                            
+
                             {/* Active indicator */}
                             {location.pathname === link.path && (
                               <motion.div
@@ -265,7 +262,7 @@ const Layout = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
-            className="flex-grow pt-4 md:pt-16"
+            className="flex-grow"
           >
             <Outlet />
           </motion.main>
