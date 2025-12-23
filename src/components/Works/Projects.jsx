@@ -21,6 +21,7 @@ import {
   SiExpress,
   SiMongodb,
   SiWordpress,
+  SiTypescript,
   SiPhp,
 } from "react-icons/si";
 
@@ -42,36 +43,11 @@ const techIcons = {
   "Express.js": <SiExpress className="text-white" />,
   MongoDB: <SiMongodb className="text-[#47A248]" />,
   WordPress: <SiWordpress className="text-[#21759B]" />,
+  TypeScript: <SiTypescript className="text-[#007ACC]" />,
 };
 
 // Project data
 const projects = [
-  // {
-  //   id: "01",
-  //   title: "E-commerce Revolution",
-  //   description:
-  //     "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles nécessite une approche structurée qui répond aux besoins spécifiques de votre client tout en offrant une expérience utilisateur fluide et engageante.",
-  //   tech: ["HTML", "CSS", "JavaScript", "scrollReveal.js"],
-  //   image: "/websites/site1.png",
-  //   links: {
-  //     github: "https://github.com/username/furnishop",
-  //     live: "https://bio-et-bien-etre.vercel.app/index.html",
-  //   },
-  //   category: "Web Development",
-  // },
-  // {
-  //   id: "02",
-  //   title: "MERN STACK | E-commerce Platform",
-  //   description:
-  //     "Créer une plateforme e-commerce sur mesure pour la vente d'huiles essentielles avec une architecture MERN stack pour une performance optimale et une expérience utilisateur exceptionnelle.",
-  //   tech: ["React", "MongoDB", "Tailwind", "Express.js", "Node.js"],
-  //   image: "/websites/site3.png",
-  //   links: {
-  //     github: "https://github.com/username/taskflow",
-  //     live: "#",
-  //   },
-  //   category: "Full Stack",
-  // },
   {
     id: "03",
     title: "MERN STACK| Centre Kech",
@@ -139,17 +115,18 @@ const projects = [
   },
   {
     id: "07",
-    title: "Lux Marrakech Conciergerie",
+    title: "University of Trading Morocco",
     description:
-      "Site vitrine pour une conciergerie de luxe à Marrakech, mettant en valeur des services haut de gamme sur-mesure. Design élégant, expérience utilisateur fluide, et contenu raffiné pour refléter l’excellence de la marque.",
-    tech: ["WordPress"],
-    image: "/websites/site6.png",
+      "Plateforme web professionnelle dédiée au trading au Maroc, Elle offre une expérience utilisateur moderne, rapide et optimisée, avec une présentation claire des offres, abonnements et services éducatifs.",
+    tech: ["Next.js", "TypeScript", "Tailwind"],
+    image: "https://res.cloudinary.com/da63nggkh/image/upload/v1766450109/utm_komu7t.png",
     links: {
       github: "#",
-      live: "https://luxmarrakech.com",
+      live: "https://www.universityoftradingma.com/",
     },
-    category: "CMS",
+    category: "Web App",
   },
+
 ];
 
 function ProjectModal({ project, onClose }) {
