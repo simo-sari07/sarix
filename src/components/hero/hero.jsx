@@ -5,21 +5,7 @@ import { motion } from "framer-motion"
 import { Download, Send } from "lucide-react"
 import { Link } from "react-router-dom"
 
-// Quote component
-const Quote = () => {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: 1.2, duration: 0.8 }}
-      className="absolute top-4 left-0 right-0 mx-auto w-full max-w-xl text-center z-20"
-    >
-      <div className="bg-gradient-to-r from-gray-900/80 to-black/80 backdrop-blur-sm p-3 rounded-lg border border-gray-800/50">
-        <p className="text-gray-300 italic text-sm md:text-base">"We love what we do, so we do it best"</p>
-      </div>
-    </motion.div>
-  )
-}
+
 
 const GlowingButton = ({ children, primary = false, onClick }) => {
   const [isHovered, setIsHovered] = useState(false)
@@ -162,20 +148,21 @@ function SpaceBackground() {
 
       time += prefersReducedMotion.current ? 0 : 0.008
 
-      // Dark space gradient background
+      // Dark space gradient background with Violet theme
       const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height)
-      gradient.addColorStop(0, "#0a1628") // Deep navy
-      gradient.addColorStop(1, "#000000") // Black
+      gradient.addColorStop(0, "#0f0c29") // Dark violet/black
+      gradient.addColorStop(0.5, "#302b63") // Rich violet
+      gradient.addColorStop(1, "#24243e") // Deep purple/blue
       ctx.fillStyle = gradient
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Draw stars with subtle twinkle
+      // Draw stars with subtle twinkle (Violet/Blue tint)
       stars.forEach((star) => {
         if (prefersReducedMotion.current) {
-          ctx.fillStyle = `rgba(100, 150, 255, ${star.opacity})`
+          ctx.fillStyle = `rgba(167, 139, 250, ${star.opacity})` // Violet-400
         } else {
           const twinkle = Math.sin(time * star.twinkleSpeed * 100 + star.twinkleOffset) * 0.3 + 0.7
-          ctx.fillStyle = `rgba(100, 150, 255, ${star.opacity * twinkle})`
+          ctx.fillStyle = `rgba(167, 139, 250, ${star.opacity * twinkle})`
         }
 
         ctx.beginPath()
@@ -391,10 +378,9 @@ const Hero = () => {
   return (
     <>
       <div
-        className={`relative min-h-screen flex items-center justify-center overflow-hidden ${isMobile ? "bg-gradient-to-b from-black to-violet-800" : ""}`}
+        className={`relative min-h-screen flex items-center justify-center overflow-hidden ${isMobile ? "bg-[linear-gradient(to_bottom,#0f0c29,#302b63,#24243e)]" : ""}`}
       >
-        {isMounted && <SpaceBackground />}
-        {!isMobile && <Quote />}
+        {isMounted && !isMobile && <SpaceBackground />}
 
         {!isMobile && <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />}
 
